@@ -17,18 +17,26 @@
     "start": "nwb serve-react-demo",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "test:watch": "nwb test-react --server",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "antd": "^3.10.9"
+  },
   "peerDependencies": {
     "react": "16.x"
   },
   "devDependencies": {
+    "babel-plugin-import": "1.x",
+    "docz": "latest",
+    "docz-plugin-css": "^0.11.0",
     "nwb": "0.23.x",
+    "nwb-less": "0.7.x",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   },
-  "author": "",
+  "author": "slebee",
   "homepage": "",
   "license": "MIT",
   "repository": "",

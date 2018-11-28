@@ -22,15 +22,21 @@
     "docz:build": "docz build"
   },
   "dependencies": {
-    "antd": "^3.10.9"
+    "antd": "^3.10.9",
+    "js-cookie": "^2.2.0",
+    "numeral": "^2.0.6",
+    "nzh": "^1.0.3",
+    "react-refetch": "^2.0.1"
   },
   "peerDependencies": {
     "react": "16.x"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.1.6",
     "babel-plugin-import": "1.x",
     "docz": "latest",
     "docz-plugin-css": "^0.11.0",
+    "docz-plugin-netlify": "^1.1.4",
     "nwb": "0.23.x",
     "nwb-less": "0.7.x",
     "react": "^16.6.3",

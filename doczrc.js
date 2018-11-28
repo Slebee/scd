@@ -1,7 +1,9 @@
 import { css } from "docz-plugin-css";
+import doczPluginNetlify from "docz-plugin-netlify";
 
 const changeConfig = config => {
   config.resolve.alias = {
+    ...config.resolve.alias,
     "@": "src"
   };
 
@@ -13,12 +15,13 @@ const babelConfig = babelrc => {
     "import",
     { libraryName: "antd", libraryDirectory: "es", style: true }
   ]);
+  babelrc.plugins.push(["@babel/plugin-proposal-decorators", { legacy: true }]);
   return babelrc;
 };
 
 export default {
-  title: "factoring-pro",
-  // modifyBundlerConfig: changeConfig,
+  title: "ServingCloud",
+  modifyBundlerConfig: changeConfig,
   modifyBabelRc: babelConfig,
   // wrapper: "doczWrapper",
   plugins: [
@@ -35,6 +38,7 @@ export default {
           "@primary-color": "#1DA57A"
         }
       }
-    })
+    }),
+    doczPluginNetlify()
   ]
 };

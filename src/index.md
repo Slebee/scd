@@ -7,17 +7,23 @@ route: /
 
 - 公共服务平台
 - 运营平台
-- IT 产品平台
 
 ### 公共服务平台
 
 公共服务平台使用 `umi` 创建页面
 
-例子，如需要创建登录页面:
+```shell
+$ mkdir project && cd project
+$ yarn create umi
+```
 
-### 运营平台 以及 IT 产品平台
+使用空格键分别选择 `antd`、`dva`、`hard source`、`dll`
 
-> 两者基于 antd pro 开发，开发方式请直接参考 [antd pro](https://pro.ant.design/)
+在 `yarn` 安装即可
+
+### 运营平台
+
+> 基于 antd pro 开发，开发方式请直接参考 [antd pro](https://pro.ant.design/)
 
 ## 私有 npm
 

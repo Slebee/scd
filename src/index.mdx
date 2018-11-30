@@ -25,7 +25,7 @@ $ yarn create umi
 
 > 基于 antd pro 开发，开发方式请直接参考 [antd pro](https://pro.ant.design/)
 
-## 私有 npm
+## 私有 npm Verdaccio
 
 目前使用 Verdaccio, 地址为 http://verdaccio.servingcloud.com:4873
 
@@ -72,3 +72,11 @@ $nrm use sc
 ```shell
 $yarn add scd
 ```
+
+## Verdaccio
+
+### 发包
+
+推荐使用 `nwb` 脚手架创建项目，只需要 npm publish 就可以发布
+
+第一次使用 Verdaccio 的时候请先 `npm adduser --registry http://verdaccio.servingcloud.com:4873` 创建你的用户名和邮箱

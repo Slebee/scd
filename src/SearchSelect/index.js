@@ -1,13 +1,13 @@
 /**
  * Created by liurunbin on 2018/5/18.
  */
-import React, { Component } from 'react';
-import { Select, Spin } from 'antd';
-import connect from '@/utils/api-connector';
-import PropTypes from 'prop-types';
-import Debounce from 'lodash-decorators/debounce';
-import Bind from 'lodash-decorators/bind';
-import qs from 'qs';
+import React, { Component } from "react";
+import { Select, Spin } from "antd";
+import connect from "../utils/api-connector";
+import PropTypes from "prop-types";
+import Debounce from "lodash-decorators/debounce";
+import Bind from "lodash-decorators/bind";
+import qs from "qs";
 
 const { Option } = Select;
 
@@ -18,10 +18,10 @@ const { Option } = Select;
       refreshing: true,
       force: true,
       then: ({ data }) => ({
-        value: transform ? transform(data) : data,
-      }),
-    },
-  }),
+        value: transform ? transform(data) : data
+      })
+    }
+  })
 }))
 class SearchSelect extends Component {
   static propTypes = {
@@ -35,7 +35,7 @@ class SearchSelect extends Component {
     dataFetch: PropTypes.func.isRequired,
     data: PropTypes.object,
     /** 这个值是用来指定输入值代表的字段名的 */
-    queryFieldName: PropTypes.string,
+    queryFieldName: PropTypes.string
   };
 
   static defaultProps = {
@@ -43,14 +43,14 @@ class SearchSelect extends Component {
     data: {
       pending: true,
       fulfilled: false,
-      value: undefined,
+      value: undefined
     },
-    queryFieldName: undefined,
+    queryFieldName: undefined
   };
 
   static getDerivedStateFromProps(nextProps) {
     // Should be a controlled component.
-    if ('value' in nextProps) {
+    if ("value" in nextProps) {
       if (!nextProps.value) {
         return { value: undefined };
       }
@@ -63,7 +63,7 @@ class SearchSelect extends Component {
     super(props);
     const value = props.value || undefined;
     this.state = {
-      value,
+      value
     };
   }
 
@@ -79,14 +79,14 @@ class SearchSelect extends Component {
     dataFetch(
       queryFieldName
         ? {
-            [queryFieldName]: value,
+            [queryFieldName]: value
           }
         : null
     );
   }
 
   handleSelectChange = value => {
-    if (!('value' in this.props)) {
+    if (!("value" in this.props)) {
       this.setState({ value });
     }
     this.triggerChange(value);
@@ -105,11 +105,11 @@ class SearchSelect extends Component {
       data: { pending, fulfilled, value },
       valueFieldName,
       textFieldName,
-      style,
+      style
     } = this.props;
     const { value: stateValue } = this.state;
     return (
-      <Spin spinning={pending}>
+      <Spin spinning={pending} style={{ width: style ? style.width : "auto" }}>
         <Select
           showSearch
           placeholder="请输入关键字"
@@ -119,13 +119,17 @@ class SearchSelect extends Component {
           onSearch={this.onSearch}
           onSelect={this.handleSelectChange}
           filterOption={(input, option) =>
-            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >=
+            0
           }
         >
           {fulfilled &&
             value &&
             value.map(val => (
-              <Option key={`${val[valueFieldName]}`} value={val[valueFieldName]}>
+              <Option
+                key={`${val[valueFieldName]}`}
+                value={val[valueFieldName]}
+              >
                 {val[textFieldName]}
               </Option>
             ))}

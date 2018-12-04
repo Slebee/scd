@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Select, Spin } from "antd";
-import connect from "@/utils/api-connector";
+import connect from "../utils/api-connector";
 import PropTypes from "prop-types";
 
 const { Option } = Select;
@@ -39,7 +39,10 @@ class AsyncSelect extends Component {
       ...this.props
     };
     return (
-      <Spin spinning={pending}>
+      <Spin
+        spinning={pending}
+        style={{ width: iumProps.style.width || "auto" }}
+      >
         <Select {...iumProps}>
           {fulfilled &&
             value &&

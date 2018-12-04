@@ -32,7 +32,7 @@ class SearchSelect extends Component {
     valueFieldName: PropTypes.string.isRequired,
     /** 选项框文本的字段名 */
     textFieldName: PropTypes.string.isRequired,
-    dataFetch: PropTypes.func.isRequired,
+
     data: PropTypes.object,
     /** 这个值是用来指定输入值代表的字段名的 */
     queryFieldName: PropTypes.string

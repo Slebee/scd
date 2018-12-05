@@ -1,4 +1,4 @@
 {
   "name": "SearchSelect",
-  "main": "./SearchSelect.js"
+  "main": "./index.js"
 }

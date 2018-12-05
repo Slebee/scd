@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 // api-connector.js
 import { connect } from "react-refetch";
-import { getToken } from "@/utils";
+import { getToken } from "./index";
 import { processBuildUrlDomain } from ".";
 // import request from './request';
 connect.options({ withRef: true });

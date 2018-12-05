@@ -1,14 +1,14 @@
 import { css } from "docz-plugin-css";
 import doczPluginNetlify from "docz-plugin-netlify";
 
-const changeConfig = config => {
-  config.resolve.alias = {
-    ...config.resolve.alias,
-    "@": "src"
-  };
+// const changeConfig = config => {
+//   config.resolve.alias = {
+//     ...config.resolve.alias,
+//     "@": "src"
+//   };
 
-  return config;
-};
+//   return config;
+// };
 
 const babelConfig = babelrc => {
   babelrc.plugins.push([
@@ -21,7 +21,7 @@ const babelConfig = babelrc => {
 
 export default {
   title: "ServingCloud",
-  modifyBundlerConfig: changeConfig,
+  // modifyBundlerConfig: changeConfig,
   modifyBabelRc: babelConfig,
   // wrapper: "doczWrapper",
   plugins: [

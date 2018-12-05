@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Cascader } from "antd";
 import provinces from "china-division/dist/provinces.json";
 import cities from "china-division/dist/cities.json";
@@ -35,6 +35,15 @@ const options = provinces.map(province => ({
   children: province.children
 }));
 
-export default props => (
-  <Cascader options={options} showSearch placeholder="请选择地址" {...props} />
-);
+export default class CitySelect extends Component {
+  render() {
+    return (
+      <Cascader
+        options={options}
+        showSearch
+        placeholder="请选择地址"
+        {...this.props}
+      />
+    );
+  }
+}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Tooltip } from "antd";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import styles from "./index.less";
+import "./index.less";
 
 /* eslint react/no-did-mount-set-state: 0 */
 /* eslint no-param-reassign: 0 */
@@ -219,9 +219,9 @@ export default class Ellipsis extends Component {
       ...restProps
     } = this.props;
 
-    const cls = classNames(styles.ellipsis, className, {
-      [styles.lines]: lines && !isSupportLineClamp,
-      [styles.lineClamp]: lines && isSupportLineClamp
+    const cls = classNames("scd-ellipsis", className, {
+      ["scd-ellipsis-lines"]: lines && !isSupportLineClamp,
+      ["scd-ellipsis-lineClamp"]: lines && isSupportLineClamp
     });
 
     if (!lines && !length) {
@@ -285,10 +285,10 @@ export default class Ellipsis extends Component {
             title: text,
             children: childNode
           })}
-          <div className={styles.shadow} ref={this.handleShadowChildren}>
+          <div className="scd-ellipsis-shadow" ref={this.handleShadowChildren}>
             {children}
           </div>
-          <div className={styles.shadow} ref={this.handleShadow}>
+          <div className="scd-ellipsis-shadow" ref={this.handleShadow}>
             <span>{text}</span>
           </div>
         </div>

@@ -1,0 +1,148 @@
+---
+name: Result
+---
+
+import { Playground, PropsTable } from "docz";
+import Result from "./index";
+import { Button, Row, Col, Icon, Steps } from "antd";
+
+# Result
+
+> 结果页用于对用户进行的一系列任务处理结果进行反馈。
+
+## Basic Usage
+
+结构包含 处理结果，补充信息 以及 操作建议 三个部分，其中 处理结果 由 提示图标，标题 和 结果描述 组成。
+
+<Playground>
+  <Result
+    type="success"
+    title={<div style={{ background: "#7dbcea", color: "#fff" }}>标题</div>}
+    description={
+      <div style={{ background: "rgba(16, 142, 233, 1)", color: "#fff" }}>
+        结果描述
+      </div>
+    }
+    extra="其他补充信息，自带灰底效果"
+    actions={
+      <div style={{ background: "#3ba0e9", color: "#fff" }}>
+        操作建议，一般放置按钮组
+      </div>
+    }
+  />
+</Playground>
+
+典型结果页面。
+
+<Playground>
+  {
+    () => {
+      const { Step } = Steps;
+
+const desc1 = (
+
+  <div style={{ fontSize: 14, position: 'relative', left: 38 }}>
+    <div style={{ marginTop: 8, marginBottom: 4 }}>
+      曲丽丽
+      <Icon type="dingding" style={{ marginLeft: 8 }} />
+    </div>
+    <div style={{ marginTop: 8, marginBottom: 4 }}>2016-12-12 12:32</div>
+  </div>
+);
+
+const desc2 = (
+
+  <div style={{ fontSize: 14, position: 'relative', left: 38 }}>
+    <div style={{ marginTop: 8, marginBottom: 4 }}>
+      周毛毛
+      <Icon type="dingding" style={{ color: '#00A0E9', marginLeft: 8 }} />
+    </div>
+    <div style={{ marginTop: 8, marginBottom: 4 }}><a href="">催一下</a></div>
+  </div>
+);
+
+const extra = (
+
+  <div>
+    <div style={{ fontSize: 16, color: 'rgba(0, 0, 0, 0.85)', fontWeight: 500, marginBottom: 20 }}>
+      项目名称
+    </div>
+    <Row style={{ marginBottom: 16 }}>
+      <Col xs={24} sm={12} md={12} lg={12} xl={6}>
+        <span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>项目 ID：</span>
+        23421
+      </Col>
+      <Col xs={24} sm={12} md={12} lg={12} xl={6}>
+        <span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>负责人：</span>
+        曲丽丽
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={24} xl={12}>
+        <span style={{ color: 'rgba(0, 0, 0, 0.85)' }}>生效时间：</span>
+        2016-12-12 ~ 2017-12-12
+      </Col>
+    </Row>
+    <Steps progressDot current={1}>
+      <Step title="创建项目" description={desc1} />
+      <Step title="部门初审" description={desc2} />
+      <Step title="财务复核" />
+      <Step title="完成" />
+    </Steps>
+  </div>
+);
+
+const actions = (
+
+  <div>
+    <Button type="primary">返回列表</Button>
+    <Button>查看项目</Button>
+    <Button>打 印</Button>
+  </div>
+);
+return <Result
+    type="success"
+    title="提交成功"
+    description="提交结果页用于反馈一系列操作任务的处理结果，如果仅是简单操作，使用 Message 全局提示反馈即可。本文字区域可以展示简单的补充说明，如果有类似展示“单据”的需求，下面这个灰色区域可以呈现比较复杂的内容。"
+    extra={extra}
+    actions={actions}
+    style={{ width: '100%' }}
+  />
+    }
+  }
+</Playground>
+
+提交失败。
+
+<Playground>
+  {() => {
+    const extra = (
+      <div>
+        <div style={{ fontSize: 16, color: 'rgba(0, 0, 0, 0.85)', fontWeight: 500, marginBottom: 16 }}>
+          您提交的内容有如下错误：
+        </div>
+        <div style={{ marginBottom: 16 }}>
+          <Icon style={{ color: '#f5222d', marginRight: 8 }} type="close-circle" />您的账户已被冻结
+          <a style={{ marginLeft: 16 }}>立即解冻 <Icon type="right" /></a>
+        </div>
+        <div>
+          <Icon style={{ color: '#f5222d', marginRight: 8 }} type="close-circle" />您的账户还不具备申请资格
+          <a style={{ marginLeft: 16 }}>立即升级 <Icon type="right" /></a>
+        </div>
+      </div>
+    );
+
+    const actions = <Button type="primary">返回修改</Button>;
+    return <Result
+        type="error"
+        title="提交失败"
+        description="请核对并修改以下信息后，再重新提交。"
+        extra={extra}
+        actions={actions}
+      />
+
+}}
+
+</Playground>
+
+## Props
+
+<PropsTable of={Result} />

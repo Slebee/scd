@@ -31,7 +31,8 @@ const csvConnector = connect.defaults({
       ...mapping,
       headers: {
         ...mapping.headers,
-        Authorization: getToken()
+        // Authorization: getToken()
+        token: "014f6dce6387406084609daa852de257"
       }
     };
 

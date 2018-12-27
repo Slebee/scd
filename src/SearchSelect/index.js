@@ -14,7 +14,9 @@ const { Option } = Select;
 @connect(({ url, transform }) => ({
   dataFetch: (params = {}) => ({
     data: {
-      url: `${url}?${qs.stringify(params)}`,
+      url: `${url}?${qs.stringify({...params, })}`,
+      // method: "POST",
+      // body: JSON.stringify(params),
       refreshing: true,
       force: true,
       then: ({ data }) => ({

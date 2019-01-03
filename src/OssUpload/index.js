@@ -23,7 +23,12 @@ const uploadProps = {
         base64Content = Base64(value);
         return axios.post(
           action,
-          { size: file.size, digest: base64Content, filename, ...data },
+          {
+            size: file.size,
+            digest: base64Content,
+            filename: file.name,
+            ...data
+          },
           {
             withCredentials,
             headers
@@ -36,7 +41,7 @@ const uploadProps = {
           return axios.put(uploadUrl, file, {
             headers: {
               // 'Content-Length': file.size,
-              "Content-Disposition": `attachment;filename="${encodeURIComponent(
+              "Content-Disposition": `attachment; filename="${encodeURIComponent(
                 file.name
               )}"`,
               "Content-MD5": base64Content,

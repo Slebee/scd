@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import { Modal } from "antd";
+import PropTypes from "prop-types";
 
 export default class UploadImageSample extends Component {
+  static propTypes = {
+    /** 预览图片的url地址 */
+    previewImage: PropTypes.string
+  };
   static defaultProps = {
     previewImage:
       "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"

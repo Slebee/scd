@@ -25,9 +25,9 @@ export default {
   modifyBabelRc: babelConfig,
   // wrapper: "doczWrapper",
   plugins: [
-    css({
-      preprocessor: "postcss"
-    }),
+    // css({
+    //   preprocessor: "postcss"
+    // }),
     css({
       preprocessor: "less",
       // cssmodules: true,

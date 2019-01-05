@@ -11,4 +11,37 @@ import OssUpload from "./index";
 
 ## Basic Usage
 
-参照 antd Upload 组件的 props，该组件与其完全一样
+注意，目前封装后只需要传入 data 对象，需要填写的 data 数据如下
+
+```
+{
+  businessId (integer, optional): 业务Id,会附加到上传的文件名中,方便标识 ,
+  businessType (string, optional): 业务类型,会附加到上传的文件名中,方便标识 ,
+  companyId (integer): 公司Id ,
+  ext (string, optional): 预留扩展字段 ,
+  moduleCode (string): 模块码 ,
+  productLineId (integer): 产品线Id ,
+  userId (integer, optional): 对应的用户Id
+}
+```
+
+<Playground>
+  <OssUpload
+    data={{
+      businessId: 0,
+      businessType: "string",
+      companyId: 0,
+      digestMethod: 1,
+      ext: "",
+      moduleCode: "company",
+      productLineId: 0,
+      userId: 1
+    }}
+  >
+    上传
+  </OssUpload>
+</Playground>
+
+## Props
+
+参照 antd Upload 组件的 props

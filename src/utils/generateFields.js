@@ -1,9 +1,11 @@
-import React from 'react';
-import { Input, Form, Col, Radio, DatePicker } from 'antd';
-import AsyncSelect from '@/components/AsyncSelect';
-import Select from '@/components/Select';
-import SearchSelect from '@/components/SearchSelect';
-import RangeMoneyInput from '@/components/RangeMoneyInput';
+import React from "react";
+import { Input, Form, Col, Radio, DatePicker } from "antd";
+import AsyncSelect from "../AsyncSelect";
+import ProductLineSelect from "../ProductLineSelect";
+import CompanySearchSelect from "../CompanySearchSelect";
+import Select from "../Select";
+import SearchSelect from "../SearchSelect";
+import RangeMoneyInput from "../RangeMoneyInput";
 
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
@@ -16,33 +18,23 @@ const fieldComponents = {
   RadioGroup,
   TextArea,
   RangeMoneyInput,
+  ProductLineSelect,
+  CompanySearchSelect,
   Select,
-  RangePicker,
+  RangePicker
 };
 const defaultFormItemSetting = {
   labelCol: {
-    span: 6,
+    span: 6
   },
   wrapperCol: {
-    span: 18,
-  },
+    span: 18
+  }
 };
 const COL_SPAN = 8;
 
 export default (form, ...args) => {
   let fields;
-  /**
-   * field
-   * {
-   *   id,
-   *   formItemOptions: {
-   *
-   *   },
-   *   options: {
-   *
-   *   }
-   * }
-   * */
   if (Array.isArray(args[0])) {
     fields = [...args[0]];
   } else {
@@ -52,7 +44,7 @@ export default (form, ...args) => {
     const Component = fieldComponents[item.type] || Input;
     const formItemOptions = {
       ...defaultFormItemSetting,
-      ...item.formItemOptions,
+      ...item.formItemOptions
     };
     const onChange =
       item.componentOptions && item.componentOptions.onChange
@@ -64,7 +56,11 @@ export default (form, ...args) => {
       <Col key={item.id} span={item.span || COL_SPAN}>
         <FormItem {...formItemOptions}>
           {form.getFieldDecorator(item.id, item.decoratorOptions)(
-            <Component style={{ width: '100%' }} {...item.componentOptions} onChange={onChange} />
+            <Component
+              style={{ width: "100%" }}
+              {...item.componentOptions}
+              onChange={onChange}
+            />
           )}
         </FormItem>
       </Col>
@@ -78,7 +74,7 @@ export function getFieldsWithInitialValues(fields, initialValues) {
     ...item,
     decoratorOptions: {
       ...item.decoratorOptions,
-      initialValue: initialValues[item.id] || undefined,
-    },
+      initialValue: initialValues[item.id] || undefined
+    }
   }));
 }

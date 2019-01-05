@@ -31,8 +31,8 @@ const csvConnector = connect.defaults({
       ...mapping,
       headers: {
         ...mapping.headers,
-        // Authorization: getToken()
-        token: "014f6dce6387406084609daa852de257"
+        token: getToken()
+        // token: "014f6dce6387406084609daa852de257"
       }
     };
 
@@ -61,8 +61,10 @@ const csvConnector = connect.defaults({
       // TODO: support custom acceptable statuses
 
       return json.then(data => {
-        if (data.code === 200) {
+        // console.log(data);
+        if (data.code === 1) {
           return Promise.resolve({
+            code: data.code,
             data: data.data,
             msg: data.msg
           });

@@ -38,7 +38,10 @@ class SearchSelect extends Component {
     /** 这个不需要理会 */
     data: PropTypes.object,
     /** 这个值是用来指定输入值代表的字段名的 */
-    queryFieldName: PropTypes.string
+    queryFieldName: PropTypes.string,
+
+    /** 找不到对应记录时显示的文字信息 */
+    notFoundContent: PropTypes.string
   };
 
   static defaultProps = {
@@ -48,7 +51,8 @@ class SearchSelect extends Component {
       fulfilled: false,
       value: undefined
     },
-    queryFieldName: undefined
+    queryFieldName: undefined,
+    notFoundContent: "暂无记录"
   };
 
   static getDerivedStateFromProps(nextProps) {
@@ -108,6 +112,7 @@ class SearchSelect extends Component {
       data: { pending, fulfilled, value },
       valueFieldName,
       textFieldName,
+      notFoundContent,
       style
     } = this.props;
     const { value: stateValue } = this.state;
@@ -117,6 +122,7 @@ class SearchSelect extends Component {
           showSearch
           placeholder="请输入关键字"
           optionFilterProp="children"
+          notFoundContent={notFoundContent}
           value={stateValue}
           style={style}
           onSearch={this.onSearch}

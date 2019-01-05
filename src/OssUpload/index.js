@@ -26,6 +26,7 @@ const uploadProps = {
           {
             size: file.size,
             digest: base64Content,
+            digestMethod: 1,
             filename: file.name,
             ...data
           },

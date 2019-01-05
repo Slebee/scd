@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 @Form.create()
 class ModalWithForm extends Component {
   static propTypes = {
-    /** 点击确定发起form校验， */
+    /** 点击确定发起form校验，fieldValues是值对象，toggleVisible是切换显示与否状态的方法， toggleLoading是切换加载中与否的方法*/
     handleSubmit: PropTypes.func,
     /** Modal的props */
     modalProps: PropTypes.object,

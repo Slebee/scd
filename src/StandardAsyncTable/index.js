@@ -1,37 +1,53 @@
-import React, { Component, createRef } from 'react';
-import StandardTable from '@/components/StandardTable';
-import PropTypes from 'prop-types';
-import qs from 'qs';
-import { isEqual } from 'lodash';
-import connect from '@/utils/api-connector';
+import React, { Component, createRef } from "react";
+import StandardTable from "../StandardTable";
+import PropTypes from "prop-types";
+import qs from "qs";
+import { isEqual } from "lodash";
+import connect from "../utils/api-connector";
 
 const defaultData = {
   list: [],
-  pagination: undefined,
+  pagination: undefined
 };
 @connect(({ url, params }) => ({
   refreshData: pageParams => ({
     dataFetch: {
       url: `${url}?${qs.stringify({ ...pageParams, ...params })}`,
-      method: 'POST',
-      body: JSON.stringify({ ...pageParams, ...params }),
+      method: "GET",
+      // body: JSON.stringify({ ...pageParams, ...params }),
       force: true,
-      then: ({ data: { list, pageNum, total, pageSize } }) => ({
+      then: ({ data: { list, pageNum, total, pageSize, order, asc } }) => ({
         value: {
           list,
           pagination: {
             showSizeChanger: true,
             showQuickJumper: true,
             current: pageNum,
+            // sorter: {
+            //   order: asc ? `${asc}end` : ``,
+            //   field: order
+            // },
             total,
             pageSize,
             showTotal: counts => `总共 ${counts} 条`,
-            pageSizeOptions: ['5', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'],
-          },
-        },
-      }),
-    },
-  }),
+            pageSizeOptions: [
+              "5",
+              "10",
+              "20",
+              "30",
+              "40",
+              "50",
+              "60",
+              "70",
+              "80",
+              "90",
+              "100"
+            ]
+          }
+        }
+      })
+    }
+  })
 }))
 class StandardAsyncTable extends Component {
   static propTypes = {
@@ -51,31 +67,34 @@ class StandardAsyncTable extends Component {
 
     /** 选择功能配置 */
     rowSelection: PropTypes.object,
+
+    /** url */
+    url: PropTypes.string.isRequired
   };
 
   static defaultProps = {
     columns: [],
     // selectedRows: [],
-    rowKey: 'key',
+    rowKey: "key",
     // selectRowAble: false,
     dataFetch: {
       pending: true,
       fulfilled: false,
       value: {
         list: [],
-        pagination: undefined,
-      },
+        pagination: undefined
+      }
     },
     fetchOnDidMount: true,
     scroll: undefined,
-    rowSelection: undefined,
+    rowSelection: undefined
   };
 
   constructor(props) {
     super(props);
     this.tableRef = createRef();
     const { getInstance } = props;
-    if (typeof getInstance === 'function') {
+    if (typeof getInstance === "function") {
       getInstance(this); // 在这里把this暴露给`parentComponent`
     }
   }
@@ -88,7 +107,7 @@ class StandardAsyncTable extends Component {
   componentWillReceiveProps(nextProps) {
     const { params } = this.props;
     if (!isEqual(nextProps.params, params)) {
-      nextProps.refreshData();
+      nextProps.refreshData(nextProps.params);
     }
   }
 
@@ -96,10 +115,10 @@ class StandardAsyncTable extends Component {
     const { refreshData } = this.props;
     const { field, order } = sorter;
     refreshData({
-      sortField: field ? field.replace('end', '') : undefined,
-      sortOrder: order ? order.replace('end', '') : undefined,
+      asc: order ? order.replace("end", "") === "asc" : undefined,
+      order: field || undefined,
       page: pagination.current,
-      pageSize: pagination.pageSize,
+      pageSize: pagination.pageSize
     });
   };
 

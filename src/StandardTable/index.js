@@ -67,6 +67,18 @@ class StandardTable extends PureComponent {
     };
   }
 
+  // static getDerivedStateFromProps(nextProps) {
+  //   // clean state
+  //   if (nextProps.selectedRows.length === 0) {
+  //     const needTotalList = initTotalList(nextProps.columns);
+  //     return {
+  //       selectedRowKeys: [],
+  //       needTotalList,
+  //     };
+  //   }
+  //   return null;
+  // }
+
   handleRowSelectChange = (selectedRowKeys, selectedRows) => {
     let { needTotalList } = this.state;
     needTotalList = needTotalList.map(item => ({
@@ -127,7 +139,7 @@ class StandardTable extends PureComponent {
           <div className={styles.tableAlert}>
             <Alert
               message={
-                <>
+                <React.Fragment>
                   已选择{" "}
                   <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a>{" "}
                   项&nbsp;&nbsp;
@@ -148,7 +160,7 @@ class StandardTable extends PureComponent {
                       清空
                     </a>
                   )}
-                </>
+                </React.Fragment>
               }
               type="info"
               showIcon

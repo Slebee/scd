@@ -1,6 +1,6 @@
 {
   "name": "scd",
-  "version": "1.4.2",
+  "version": "1.4.4",
   "description": "scd React component",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.1.6",
     "babel-plugin-import": "1.x",
-    "docz": "latest",
+    "docz": "^0.13.7",
     "docz-plugin-css": "^0.11.0",
     "docz-plugin-netlify": "^1.1.4",
     "nwb": "0.23.x",

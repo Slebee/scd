@@ -1,0 +1,47 @@
+---
+name: SearchTable
+---
+
+import { Playground, PropsTable } from "docz";
+import SearchTable from "./index";
+
+# SearchTable
+
+> 标准异步带搜索框表格组件
+
+## Basic Usage
+
+<Playground>
+  {() => {
+    const fields = [
+      {
+        id: "billCode",
+        span: 10,
+        formItemOptions: {
+          label: "付款单号"
+        }
+      }
+    ];
+    const columns = [
+      { title: "名称", dataIndex: "name" },
+      {
+        title: "状态",
+        dataIndex: "state",
+        sorter: true
+      }
+    ];
+    return (
+      <SearchTable
+        url="https://www.easy-mock.com/mock/5c305766e679224c062781b7/spacecloud-ucenter-app/ms/api/v1/uc/company/selectMy"
+        rowKey="id"
+        title="页面列表页"
+        fields={fields}
+        columns={columns}
+      />
+    );
+  }}
+</Playground>
+
+## Props
+
+<PropsTable of={SearchTable} />

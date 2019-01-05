@@ -1,0 +1,39 @@
+---
+name: StandardAsyncTable
+---
+
+import { Playground, PropsTable } from "docz";
+import StandardAsyncTable from "./index";
+
+# StandardAsyncTable
+
+> 标准异步获取数据表格
+
+## Basic Usage
+
+GET 请求类型
+
+<Playground>
+  {() => {
+    const columns = [
+      { title: "名称", dataIndex: "name" },
+      {
+        title: "状态",
+        dataIndex: "state",
+        sorter: true
+      }
+    ];
+    return (
+      <StandardAsyncTable
+        url="https://www.easy-mock.com/mock/5c305766e679224c062781b7/spacecloud-ucenter-app/ms/api/v1/uc/company/selectMy"
+        rowKey="id"
+        title="页面列表页"
+        columns={columns}
+      />
+    );
+  }}
+</Playground>
+
+## Props
+
+<PropsTable of={StandardAsyncTable} />

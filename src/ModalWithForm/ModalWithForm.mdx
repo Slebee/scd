@@ -1,0 +1,30 @@
+---
+name: ModalWithForm
+---
+
+import { Playground, PropsTable } from "docz";
+import ModalWithForm from "./index";
+
+# ModalWithForm
+
+> 提供一个带有 form 的 Modal，通过(按钮|文字|自定义元素)触发 Modal 的弹出
+
+## Basic Usage
+
+<Playground>
+  <ModalWithForm
+    type="button"
+    modalProps={{ title: "hi" }}
+    handleSubmit={(fieldValues, hideModal, toggleModalVisible) => {
+      console.log(fieldValues);
+      // hideModal();
+    }}
+    renderModalContent={form => {
+      return <div>123</div>;
+    }}
+  />
+</Playground>
+
+## Props
+
+<PropsTable of={ModalWithForm} />

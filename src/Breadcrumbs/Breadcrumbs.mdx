@@ -1,0 +1,32 @@
+---
+name: Breadcrumbs
+---
+
+import { Playground, PropsTable } from "docz";
+import Breadcrumbs from "./index";
+
+# Breadcrumbs
+
+> 面包屑，基于 antd Breadcrumb and react-router-breadcrumbs-hoc 组件封装
+> 避免面包屑会出现英文的情况，必须通过注释扩展路由
+
+## Basic Usage
+
+通过 `route` 面包屑会根据浏览器的路由发生变化。
+
+<Playground>
+  <Breadcrumbs 
+    route={{
+      routes:[
+            {path: "/", exact: true, title: "Breadcrumbs" },
+            {path: "/src-breadcrumbs-breadcrumbs", exact: true, title: "Breadcrumbs" },
+        ]
+    }}
+  />
+</Playground>
+
+提示: ` umi ` 自动创建出来的路由可以直在 ` src/layout ` 里面的BasicLayout组件里面通过 ` props.route ` 拿到
+
+## Props
+
+<PropsTable of={Breadcrumbs} />

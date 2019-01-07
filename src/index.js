@@ -9,5 +9,6 @@ export OssUpload from "./OssUpload";
 export UploadImageSample from "./UploadImageSample";
 export ModalWithForm from "./ModalWithForm";
 export Breadcrumbs from "./Breadcrumbs";
+export SearchTable from "./SearchTable";
 
 export default "";

@@ -35,12 +35,13 @@ class Demo extends Component {
         <ProductLineSelect style={{ width: 200 }} />
         <CitySelect />
         <ModalWithForm
-          type="text"
+          type="button"
           modalProps={{ title: "hi" }}
           handleSubmit={(fieldValues, hideModal, toggleModalVisible) => {
             console.log(fieldValues);
             // hideModal();
           }}
+          buttonProps={{ type: "primary" }}
           renderModalContent={form => {
             return <div>123</div>;
           }}

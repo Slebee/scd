@@ -57,15 +57,16 @@ class ModalWithForm extends Component {
       renderButton
     } = this.props;
     let TriggerComponent;
+
     if (type === "button") {
-      TriggerComponent = buttonProps => (
+      TriggerComponent = () => (
         <Button onClick={this.toggleVisible} {...buttonProps}>
           button
         </Button>
       );
     }
     if (type === "text") {
-      TriggerComponent = buttonProps => (
+      TriggerComponent = () => (
         <span onClick={this.toggleVisible} {...buttonProps}>
           button
         </span>

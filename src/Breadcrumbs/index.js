@@ -9,7 +9,7 @@ const data = [
   '/messages/', //消息
   '/home/', //首页
   '/organization/', //组织
-  '/user-center', //登录
+  '/user-center/', //登录
   '/help/', //帮助中心
   '/todo/', //待办
 ];

@@ -23,16 +23,18 @@ import { UploadImageSample } from 'scd';
 
 ## TODOS
 
-- [x] ProductLineSelect 产品线下拉选择
-- [x] SearchSelect 模糊搜索下拉
-- [x] CompanySearchSelect 公司列表模糊查询下拉【基于 SearchSelect 封装数据源】
-- [x] CitySelect 省市区选择
-- [x] OssUpload OSS 文件上传
-- [ ] ModalWithForm 结合 Form 的 Modal，通过向 children 传入 函数的形式构造内部表单内容
-- [x] Ellipsis 文本省略号处理【使用 ant pro 的版本】
-- [x] Breadcrumbs 面包屑导航
-- [x] UploadImageSample 上传图片示例
-- [x] AsyncTable 带有远程加载数据能力的 Table 封装
+- [x] ProductLineSelect 产品线下拉选择 @润彬
+- [x] SearchSelect 模糊搜索下拉 @润彬
+- [x] CompanySearchSelect 公司列表模糊查询下拉【基于 SearchSelect 封装数据源】 @slebee
+- [x] CitySelect 省市区选择 @润彬
+- [x] OssUpload OSS 文件上传 @润彬
+- [x] ModalWithForm 结合 Form 的 Modal，通过向 children 传入 函数的形式构造内部表单内容 @润彬
+- [x] Ellipsis 文本省略号处理【使用 ant pro 的版本】 @润彬
+- [x] Breadcrumbs 面包屑导航 @丽元
+- [x] UploadImageSample 上传图片示例 @润彬
+- [ ] AsyncTable 带有远程加载数据能力的 Table 封装 @润彬
+- [ ] SearchFilter 搜索条件的 Form 表单集合封装 @润彬
+- [ ] SearchTable 结合 `AsyncTable` 与 `SearchFilter` 的封装 @润彬
 
 ## 开发指南
 

@@ -41,7 +41,7 @@ class Demo extends Component {
             console.log(fieldValues);
             // hideModal();
           }}
-          buttonProps={{ type: "primary" }}
+          buttonProps={{ type: "primary", children: "hei" }}
           renderModalContent={form => {
             return <div>123</div>;
           }}

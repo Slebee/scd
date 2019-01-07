@@ -60,16 +60,12 @@ class ModalWithForm extends Component {
 
     if (type === "button") {
       TriggerComponent = () => (
-        <Button onClick={this.toggleVisible} {...buttonProps}>
-          button
-        </Button>
+        <Button onClick={this.toggleVisible} {...buttonProps} />
       );
     }
     if (type === "text") {
       TriggerComponent = () => (
-        <span onClick={this.toggleVisible} {...buttonProps}>
-          button
-        </span>
+        <span onClick={this.toggleVisible} {...buttonProps} />
       );
     }
     if (renderButton) {

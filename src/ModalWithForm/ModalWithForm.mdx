@@ -15,6 +15,7 @@ import ModalWithForm from "./index";
   <ModalWithForm
     type="button"
     modalProps={{ title: "hi" }}
+    buttonProps={{ type: "primary", children: "按钮" }}
     handleSubmit={(fieldValues, hideModal, toggleModalVisible) => {
       console.log(fieldValues);
       // hideModal();

@@ -17,10 +17,15 @@ import Breadcrumbs from "./index";
 <Playground>
   <Breadcrumbs 
     route={{
-      routes:[
+      location:{
+        pathname:'/src-breadcrumbs-breadcrumbs'
+      },
+      route:{
+        routes:[
             {path: "/", exact: true, title: "Breadcrumbs" },
             {path: "/src-breadcrumbs-breadcrumbs", exact: true, title: "Breadcrumbs" },
         ]
+      }
     }}
   />
 </Playground>

@@ -33,12 +33,12 @@ function composeMenus(list, data) {
   return arr;
 }
 
-const Breadcrumbs = ({ route, removeList=[], breadcrumbOptions }) => {
+const Breadcrumbs = ({ route, location, removeList=[], breadcrumbOptions }) => {
   
   const array = list.concat(removeList),
-        routes = composeMenus(route.route.routes, array), 
+        routes = composeMenus(route.routes, array), 
         name = window.location.pathname.toLowerCase(), //str = name.replace(/\//g,'');
-        oPath = route.location.pathname.toLowerCase(),
+        oPath = location.pathname.toLowerCase(),
         isShow = routes.filter(item =>item.path.toLowerCase() === oPath.toLowerCase()).length>0
 
   if (routes && Array.isArray(routes) && isShow) {
@@ -81,6 +81,8 @@ const Breadcrumbs = ({ route, removeList=[], breadcrumbOptions }) => {
 Breadcrumbs.propTypes = {
   /** 路由 基于umi创建出来都是 route：{} 所以直接接收对象*/
   route: PropTypes.object.isRequired,
+  /** 当前页面的路由*/
+  location:PropTypes.object.isRequired,
   /** 需要删除的路由,默认值['/login','/register','/register/Agreement',] */
   removeList:PropTypes.array,
   /** 接收所有 antd Breadcrumb 的 props*/

@@ -4,15 +4,16 @@ import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
 import { Breadcrumb } from 'antd';
 import PropTypes from 'prop-types'
 
-const data = [
-  '/myCompany/', //公司列表
-  '/messages/', //消息
-  '/home/', //首页
-  '/organization/', //组织
-  '/user-center/', //登录
-  '/help/', //帮助中心
-  '/todo/', //待办
-];
+// const data = [
+//   '/my-company/', //公司列表
+//   '/messages/', //消息
+//   '/home/', //首页
+//   '/organization/', //组织
+//   '/user-center/', //登录
+//   '/help/', //帮助中心
+//   '/todo/', //待办
+//   '/project/', //项目
+// ];
 
 const list = [
   '/login',
@@ -37,16 +38,17 @@ const Breadcrumbs = ({ route, location, removeList=[], breadcrumbOptions }) => {
   
   const array = list.concat(removeList),
         routes = composeMenus(route.routes, array), 
-        name = window.location.pathname.toLowerCase(), //str = name.replace(/\//g,'');
+        name = window.location.pathname, //str = name.replace(/\//g,'');
         oPath = location.pathname.toLowerCase(),
-        isShow = routes.filter(item =>item.path.toLowerCase() === oPath.toLowerCase()).length>0
+        isShow = routes.filter(item =>item.path.toLowerCase() === oPath.toLowerCase()).length>0;
+        //isShowHomeTitle = data.filter(item =>item.toLowerCase() === name.toLowerCase()).length>0;
 
   if (routes && Array.isArray(routes) && isShow) {
     const AntdBreadcrumb = withBreadcrumbs(routes)(({ breadcrumbs }) => {
       return (
         <Breadcrumb classNames="spread" {...breadcrumbOptions}>
           {
-            data.indexOf(name) > -1 && (
+            name !== '/' && (
               <Breadcrumb.Item key={name}><a href="/home/#/dashboard">工作台</a></Breadcrumb.Item>
             )
           }

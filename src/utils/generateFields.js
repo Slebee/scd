@@ -1,11 +1,12 @@
 import React from "react";
-import { Input, Form, Col, Radio, DatePicker } from "antd";
+import { Input, Form, Col, Radio, DatePicker, Cascader } from "antd";
 import AsyncSelect from "../AsyncSelect";
 import ProductLineSelect from "../ProductLineSelect";
 import CompanySearchSelect from "../CompanySearchSelect";
 import Select from "../Select";
 import SearchSelect from "../SearchSelect";
 import RangeMoneyInput from "../RangeMoneyInput";
+import OssUpload from "../OssUpload";
 
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
@@ -17,8 +18,11 @@ const fieldComponents = {
   SearchSelect,
   RadioGroup,
   TextArea,
+  OssUpload,
   RangeMoneyInput,
   ProductLineSelect,
+  DatePicker,
+  Cascader,
   CompanySearchSelect,
   Select,
   RangePicker

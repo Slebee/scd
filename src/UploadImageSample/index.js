@@ -5,17 +5,19 @@ import PropTypes from "prop-types";
 export default class UploadImageSample extends Component {
   static propTypes = {
     /** 预览图片的url地址 */
-    previewImage: PropTypes.string
+    previewImage: PropTypes.string,
+    /** Modal的props */
+    modalProps: PropTypes.object
   };
   static defaultProps = {
     previewImage:
-      "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+      "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    modalProps: {}
   };
   state = {
     previewVisible: false
   };
   handleCancel = () => {
-    console.log(1);
     this.setState({ previewVisible: false });
   };
 
@@ -26,7 +28,7 @@ export default class UploadImageSample extends Component {
   };
   render() {
     const { previewVisible } = this.state;
-    const { previewImage } = this.props;
+    const { previewImage, modalProps } = this.props;
     return (
       <React.Fragment>
         <div
@@ -55,6 +57,7 @@ export default class UploadImageSample extends Component {
           visible={previewVisible}
           footer={null}
           onCancel={this.handleCancel}
+          {...modalProps}
         >
           <img alt="example" style={{ width: "100%" }} src={previewImage} />
         </Modal>

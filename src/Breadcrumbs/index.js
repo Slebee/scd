@@ -46,7 +46,9 @@ const Breadcrumbs = ({ route, location, removeList=[], breadcrumbOptions }) => {
   if (routes && Array.isArray(routes) && isShow) {
     const AntdBreadcrumb = withBreadcrumbs(routes)(({ breadcrumbs }) => {
       return (
-        <Breadcrumb classNames="spread" {...breadcrumbOptions}>
+        <Breadcrumb classNames="spread" {...breadcrumbOptions} style={{
+          height:40, lineHeight:40, padding: '0px 40px', background: rgb(236, 236, 236)
+        }}>
           {
             name !== '/' && (
               <Breadcrumb.Item key={name}><a href="/home/#/dashboard">工作台</a></Breadcrumb.Item>

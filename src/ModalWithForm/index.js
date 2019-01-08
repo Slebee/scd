@@ -12,10 +12,13 @@ class ModalWithForm extends Component {
     /** Modal触发器的props */
     buttonProps: PropTypes.object,
     /** 自定义触发器 */
-    renderButton: PropTypes.func
+    renderButton: PropTypes.func,
+    /** 触发器类型，文本或者按钮 */
+    type: PropTypes.string
   };
   static defaultProps = {
-    handleSubmit: (fieldValues, toggleVisible, toggleLoading) => {}
+    handleSubmit: (fieldValues, toggleVisible, toggleLoading) => {},
+    type: "button"
   };
 
   state = {
@@ -57,22 +60,19 @@ class ModalWithForm extends Component {
       renderButton
     } = this.props;
     let TriggerComponent;
+
     if (type === "button") {
-      TriggerComponent = buttonProps => (
-        <Button onClick={this.toggleVisible} {...buttonProps}>
-          button
-        </Button>
+      TriggerComponent = () => (
+        <Button onClick={this.toggleVisible} {...buttonProps} />
       );
     }
     if (type === "text") {
-      TriggerComponent = buttonProps => (
-        <span onClick={this.toggleVisible} {...buttonProps}>
-          button
-        </span>
+      TriggerComponent = () => (
+        <span onClick={this.toggleVisible} {...buttonProps} />
       );
     }
     if (renderButton) {
-      TriggerComponent = renderButton(this.toggleVisible, buttonProps);
+      TriggerComponent = () => renderButton(this.toggleVisible, buttonProps);
     }
     return (
       <React.Fragment>

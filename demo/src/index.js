@@ -5,7 +5,10 @@ import CitySelect from "../../src/CitySelect";
 import ModalWithForm from "../../src/ModalWithForm";
 import UploadImageSample from "../../src/UploadImageSample";
 import SearchTable from "../../src/SearchTable";
+import StandardForm from "../../src/StandardForm";
+import { Form, Button } from "antd";
 
+@Form.create()
 class Demo extends Component {
   render() {
     const columns = [
@@ -30,22 +33,51 @@ class Demo extends Component {
         dataIndex: "uploadFileCode"
       }
     ];
+    const { form } = this.props;
     return (
       <div style={{ background: "#ccc" }}>
         <ProductLineSelect style={{ width: 200 }} />
         <CitySelect />
         <ModalWithForm
-          type="text"
+          type="button"
           modalProps={{ title: "hi" }}
           handleSubmit={(fieldValues, hideModal, toggleModalVisible) => {
             console.log(fieldValues);
             // hideModal();
           }}
+          renderButton={() => <Button>aaa</Button>}
+          buttonProps={{ type: "primary", children: "hei" }}
           renderModalContent={form => {
             return <div>123</div>;
           }}
         />
         <UploadImageSample />
+        <div>
+          <StandardForm
+            form={form}
+            fields={[
+              {
+                id: "productLineId",
+                span: 8,
+                type: "ProductLineSelect",
+                formItemOptions: {
+                  label: "产品线"
+                }
+              },
+              {
+                id: "companyId",
+                span: 8,
+                type: "CompanySearchSelect",
+                formItemOptions: {
+                  label: "所属企业"
+                },
+                decoratorOptions: {
+                  initialValue: ""
+                }
+              }
+            ]}
+          />
+        </div>
         <div style={{ width: 700, background: "#fefefe" }}>
           <SearchTable
             rowKey="id"

@@ -10,6 +10,9 @@ import { Form, Button } from "antd";
 
 @Form.create()
 class Demo extends Component {
+  renderButton = toggleVisible => (
+    <Button onClick={toggleVisible}>aaasssss</Button>
+  );
   render() {
     const columns = [
       {
@@ -45,7 +48,9 @@ class Demo extends Component {
             console.log(fieldValues);
             // hideModal();
           }}
-          renderButton={() => <Button>aaa</Button>}
+          renderButton={toggleVisible => (
+            <Button onClick={toggleVisible}>aaasssss</Button>
+          )}
           buttonProps={{ type: "primary", children: "hei" }}
           renderModalContent={form => {
             return <div>123</div>;
@@ -54,7 +59,9 @@ class Demo extends Component {
         <UploadImageSample />
         <div>
           <StandardForm
-            form={form}
+            onSubmit={values => {
+              console.log(values);
+            }}
             fields={[
               {
                 id: "productLineId",
@@ -76,9 +83,13 @@ class Demo extends Component {
                 }
               }
             ]}
-          />
+          >
+            <Button type="primary" htmlType="submit">
+              发送
+            </Button>
+          </StandardForm>
         </div>
-        <div style={{ width: 700, background: "#fefefe" }}>
+        <div style={{ background: "#fefefe", marginTop: 100 }}>
           <SearchTable
             rowKey="id"
             url="/ms/api/v1/file-config/queryUploadFileConfigInfo"

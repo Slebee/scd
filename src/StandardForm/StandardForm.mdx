@@ -1,0 +1,78 @@
+---
+name: StandardForm
+---
+
+import { Playground, PropsTable } from "docz";
+import { Button } from "antd";
+import StandardForm from "./index";
+
+# StandardForm
+
+> 提供一个通过(按钮|文字|自定义元素)触发 Modal 的弹出
+
+## Basic Usage
+
+目前 fields 接收以下类型
+
+- Input
+- AsyncSelect
+- SearchSelect
+- RadioGroup
+- TextArea
+- OssUpload
+- RangeMoneyInput
+- ProductLineSelect
+- DatePicker
+- Cascader
+- CompanySearchSelect
+- Select
+- RangePicker
+
+```javascript
+// fields 元素
+{
+  id: string, // form.getFieldDecorator 的第一个参数id值
+  span: number, // Col标签占用的span值,默认值8
+  type: string, // 输入框类型，具体参照上面 如: Input
+  formItemOptions: object, // formItem的 props 如: label
+  decoratorOptions: object, // form的decorator的options 如: rules: []
+  componentOptions: object, // 真实组件的 props，如: placeholder 等
+}
+```
+
+<Playground>
+  <StandardForm
+    onSubmit={values => {
+      console.log(values);
+    }}
+    fields={[
+      {
+        id: "productLineId",
+        span: 8,
+        type: "ProductLineSelect",
+        formItemOptions: {
+          label: "产品线"
+        }
+      },
+      {
+        id: "companyId",
+        span: 8,
+        type: "CompanySearchSelect",
+        formItemOptions: {
+          label: "所属企业"
+        },
+        decoratorOptions: {
+          initialValue: ""
+        }
+      }
+    ]}
+  >
+    <Button type="primary" htmlType="submit">
+      发送
+    </Button>
+  </StandardForm>
+</Playground>
+
+## Props
+
+<PropsTable of={StandardForm} />

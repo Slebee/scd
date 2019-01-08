@@ -1,0 +1,64 @@
+---
+name: ModalWithTrigger
+---
+
+import { Playground, PropsTable } from "docz";
+import ModalWithTrigger from "./index";
+
+# ModalWithTrigger
+
+> 提供一个通过(按钮|文字|自定义元素)触发 Modal 的弹出
+
+## Basic Usage
+
+文本式与按钮式
+
+<Playground>
+  <ModalWithTrigger
+    type="text"
+    handleOk={toggleModalVisible => toggleModalVisible()}
+    modalProps={{ title: "hi" }}
+    buttonProps={{ type: "primary", children: "文本按钮" }}
+  >
+    <div>123</div>
+  </ModalWithTrigger>
+  <ModalWithTrigger
+    type="button"
+    handleOk={toggleModalVisible => toggleModalVisible()}
+    modalProps={{ title: "hi" }}
+    buttonProps={{ type: "primary", children: "普通按钮" }}
+  >
+    <div>123</div>
+  </ModalWithTrigger>
+</Playground>
+
+自定义按钮
+
+<Playground>
+  <ModalWithTrigger
+    modalProps={{ title: "hi" }}
+    handleOk={toggleModalVisible => toggleModalVisible()}
+    renderButton={toggleModalVisible => (
+      <div
+        style={{
+          width: 100,
+          height: 100,
+          borderRadius: "50%",
+          background: "#000",
+          color: "#fff",
+          textAlign: "center",
+          lineHeight: "100px"
+        }}
+        onClick={toggleModalVisible}
+      >
+        点我
+      </div>
+    )}
+  >
+    <div>123</div>
+  </ModalWithTrigger>
+</Playground>
+
+## Props
+
+<PropsTable of={ModalWithTrigger} />

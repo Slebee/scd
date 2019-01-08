@@ -47,7 +47,7 @@ const Breadcrumbs = ({ route, location, removeList=[], breadcrumbOptions }) => {
     const AntdBreadcrumb = withBreadcrumbs(routes)(({ breadcrumbs }) => {
       return (
         <Breadcrumb classNames="spread" {...breadcrumbOptions} style={{
-          height:40, lineHeight:40, padding: '0px 40px', background: rgb(236, 236, 236)
+          height:40, lineHeight:40, padding: '0px 40px', background: '#fcfcfc'
         }}>
           {
             name !== '/' && (

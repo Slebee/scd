@@ -36,7 +36,7 @@ import { UploadImageSample } from 'scd';
 - [ ] SearchFilter 搜索条件的 Form 表单集合封装 @润彬
 - [ ] SearchTable 结合 `AsyncTable` 与 `SearchFilter` 的封装 @润彬
 - [x] ModalWithTrigger 提供一个通过(按钮|文字|自定义元素)触发 Modal 的弹出层 @润彬
-- [ ] StandardForm 标准表格
+- [x] StandardForm 标准 Form @润彬
 
 ## 开发指南
 

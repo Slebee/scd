@@ -65,9 +65,9 @@ export default class CustomUpload extends Component {
               return axios.put(uploadUrl, file, {
                 headers: {
                   // 'Content-Length': file.size,
-                  "Content-Disposition": `attachment; filename="${encodeURIComponent(
-                    file.name
-                  )}"`,
+                  "Content-Disposition": `${
+                    props.contentDisposition
+                  }; filename="${encodeURIComponent(file.name)}"`,
                   "Content-MD5": base64Content,
                   "x-oss-callback": ossCallback,
                   "x-oss-callback-var": ossCallbackVar,

@@ -19,7 +19,6 @@ interface UploadFile {
   lastModified?: number;
   lastModifiedDate?: Date;
   url?: string;
-  status?: UploadFileStatus;
   percent?: number;
   thumbUrl?: string;
   originFileObj?: File;

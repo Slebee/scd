@@ -3,16 +3,18 @@ function clean_hex(input, remove_0x) {
   input = input.toUpperCase();
 
   if (remove_0x) {
-    input = input.replace(/0x/gi, '');
+    input = input.replace(/0x/gi, "");
   }
 
   var orig_input = input;
-  input = input.replace(/[^A-Fa-f0-9]/g, '');
-  if (orig_input != input) alert('Warning! Non-hex characters in input string ignored.');
+  input = input.replace(/[^A-Fa-f0-9]/g, "");
+  if (orig_input != input)
+    alert("Warning! Non-hex characters in input string ignored.");
   return input;
 }
 
-const base64_chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+const base64_chars =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 function binary_to_base64(input) {
   var ret = [];
   var i = 0;
@@ -26,8 +28,10 @@ function binary_to_base64(input) {
     char_array_3[i++] = input[pos++];
     if (i === 3) {
       char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
-      char_array_4[1] = ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
-      char_array_4[2] = ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
+      char_array_4[1] =
+        ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
+      char_array_4[2] =
+        ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
       char_array_4[3] = char_array_3[2] & 0x3f;
 
       for (i = 0; i < 4; i++) ret += base64_chars.charAt(char_array_4[i]);
@@ -39,19 +43,21 @@ function binary_to_base64(input) {
     for (j = i; j < 3; j++) char_array_3[j] = 0;
 
     char_array_4[0] = (char_array_3[0] & 0xfc) >> 2;
-    char_array_4[1] = ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
-    char_array_4[2] = ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
+    char_array_4[1] =
+      ((char_array_3[0] & 0x03) << 4) + ((char_array_3[1] & 0xf0) >> 4);
+    char_array_4[2] =
+      ((char_array_3[1] & 0x0f) << 2) + ((char_array_3[2] & 0xc0) >> 6);
     char_array_4[3] = char_array_3[2] & 0x3f;
 
     for (j = 0; j < i + 1; j++) ret += base64_chars.charAt(char_array_4[j]);
 
-    while (i++ < 3) ret += '=';
+    while (i++ < 3) ret += "=";
   }
 
   return ret;
 }
 
-function Convert(str) {
+function convertToBase64(str) {
   var cleaned_hex = clean_hex(str, true);
   var binary = [];
   for (var i = 0; i < cleaned_hex.length / 2; i++) {
@@ -61,4 +67,4 @@ function Convert(str) {
   return binary_to_base64(binary);
 }
 
-export default Convert;
+export default convertToBase64;

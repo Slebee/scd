@@ -6,6 +6,7 @@ import ModalWithForm from "../../src/ModalWithForm";
 import UploadImageSample from "../../src/UploadImageSample";
 import SearchTable from "../../src/SearchTable";
 import StandardForm from "../../src/StandardForm";
+import OssUpload from "../../src/OssUpload";
 import { Form, Button } from "antd";
 
 @Form.create()
@@ -57,6 +58,19 @@ class Demo extends Component {
           }}
         />
         <UploadImageSample />
+        <OssUpload
+          data={{
+            businessId: 0,
+            businessType: "string",
+            companyId: 0,
+            digestMethod: 1,
+            ext: "",
+            moduleCode: "company",
+            productLineId: 0
+          }}
+        >
+          上传
+        </OssUpload>
         <div>
           <StandardForm
             onSubmit={values => {

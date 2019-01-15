@@ -44,8 +44,8 @@ export default class UploadImageSample extends Component {
               <span>
                 <img
                   className="ant-upload-list-item-thumbnail"
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                  alt="xxx.png"
+                  src={previewImage}
+                  alt="thumbUrl"
                   style={{ height: 55 }}
                 />
                 <p style={{ textAlign: "center", marginTop: 5 }}>示例图</p>

@@ -14,5 +14,6 @@ export SearchTable from "./SearchTable";
 export Select from "./Select";
 export StandardForm from "./StandardForm";
 export StandardTable from "./StandardTable";
+export Signatures from "./Signatures";
 
 export default "";

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Upload } from "antd";
+import React, { Component, Fragment } from "react";
+import { Upload, Modal } from "antd";
 import PropTypes from "prop-types";
 import fileToMd5 from "./fileToMd5";
 import Base64 from "./Base64";
@@ -19,12 +19,25 @@ export default class CustomUpload extends Component {
     /** 请传http请求中的 content-type */
     contentType: PropTypes.string,
     /** Content-Disposition,不需要filename */
-    contentDisposition: PropTypes.string
+    contentDisposition: PropTypes.string,
+    /** Modal的props */
+    modalProps: PropTypes.object
   };
   static defaultProps = {
     contentType: CONTENT_TYPES.picture,
-    contentDisposition: CONTENT_DISPOSITION.picture
+    contentDisposition: CONTENT_DISPOSITION.picture,
+    modalProps: {}
   };
+
+  state = {
+    previewVisible: false,
+    previewImage: '',
+  };
+
+  handleCancel = () => {
+    this.setState({ previewVisible: false });
+  };
+
   render() {
     const { props } = this;
     const uploadProps = {
@@ -107,8 +120,31 @@ export default class CustomUpload extends Component {
             console.log("upload progress is aborted.");
           }
         };
+      },
+      onPreview:(file)=>{
+        this.setState({
+          previewImage: file.url || file.thumbUrl,
+          previewVisible: true,
+        });
       }
     };
-    return <Upload {...uploadProps} {...props} />;
+    const { previewVisible, previewImage } = this.state;
+    return (
+      <Fragment>
+        <Upload {...uploadProps} {...props} />
+        <Modal
+          visible={previewVisible}
+          footer={null}
+          onCancel={this.handleCancel}
+          {...props.modalProps}
+        >
+          <img
+            alt="example"
+            style={{ width: "100%" }}
+            src={previewImage}
+          />
+        </Modal>
+      </Fragment>
+    )
   }
 }

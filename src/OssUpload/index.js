@@ -28,7 +28,7 @@ export default class CustomUpload extends Component {
   render() {
     const { props } = this;
     const uploadProps = {
-      action: "/ms/api/v1/file/addNewFile",
+      action: "/api/v1/ucenter/addNewFile",
       customRequest({
         action,
         data,

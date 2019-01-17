@@ -7,3 +7,4 @@
 .docz
 yarn.lock
 npm-debug.log*
+.vscode

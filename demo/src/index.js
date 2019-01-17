@@ -12,6 +12,7 @@ class Demo extends Component {
           searchSelectUrl="https://www.easy-mock.com/mock/5c3f0590419c5d0de8845c01/scddemo/ms/api/v1/sc/signatureManagement/seals"
           signUrl="https://www.easy-mock.com/mock/5c3f0590419c5d0de8845c01/scddemo/ms/api/v1/sc/signatureManagement/signByUkey"
           signAgreementUrl="https://www.easy-mock.com/mock/5c3f0590419c5d0de8845c01/scddemo/ms/api/v1/sc/signatureManagement/signAgreement"
+          recordList="https://www.easy-mock.com/mock/5c3f0590419c5d0de8845c01/scddemo/ms/api/v1/sc/signatureManagement/record"
         />
       </div>
     );

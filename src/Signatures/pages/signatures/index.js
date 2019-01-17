@@ -1,18 +1,8 @@
 import * as React from "react";
 import { Card, Button, Modal, message, Input } from "antd";
-// import { DragDropContextProvider } from 'react-dnd';
-// import HTML5Backend from 'react-dnd-html5-backend';
 import AsyncSelect from "../../../AsyncSelect";
-// import { connect } from "dva";
-// import PDF from 'react-pdf-js';
-
-// import styles from "./signatures.less";
 import "./signatures.less";
 import axios from "axios";
-// @connect(({ signatures }) => ({
-//   signatures
-//   // loading: loading.effects['chart/fetch'],
-// }))
 class Contract extends React.Component {
   mouseClientX = 0;
 
@@ -27,12 +17,15 @@ class Contract extends React.Component {
     imgData: "",
     sealData: [],
     selectSealData: {},
-    pageNum: 2
+    pageNum: 2,
+    signaturesRecord: []
   };
 
   componentDidMount() {
     const { markId } = this.props;
+
     window.GetUserList(data => {
+      console.log("d.data");
       const strKey = data.retVal.split("&&&")[0].split("||");
       const strCertID = strKey[1];
       this.setState({ strCertID });
@@ -41,7 +34,7 @@ class Contract extends React.Component {
       });
     });
     this.delLocalStorage();
-    // dispatch({ type: "signatures/recordQuery", payload: markId });
+    this.getSignaturesRecordList();
   }
 
   componentWillUnmount() {
@@ -241,14 +234,6 @@ class Contract extends React.Component {
       .catch(errMsg => {
         message.error(errMsg);
       });
-
-    // dispatch({ type: "signatures/sign", payload: { ...parameter } })
-    //   .then(res => {
-    //     this.contractSign(pwd, res.data);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
   };
 
   contractSign = (pwd, digestData) => {
@@ -289,21 +274,35 @@ class Contract extends React.Component {
       .catch(errMsg => {
         message.error(errMsg);
       });
+  };
 
-    // dispatch({ type: "signatures/signPdf", payload: parameter })
-    //   .then(() => {
-    //     message.success("签署成功");
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+  getSignaturesRecordList = () => {
+    let { recordList, markId } = this.props;
+    if (!recordList) {
+      recordList = "/ms/api/v1/sc/signatureManagement/record";
+    }
+    axios
+      .get(`${recordList}?markId=${markId}`)
+      .then(({ data: res }) => {
+        if (res.code === 1) {
+          const { recodeOnLoadCB } = this.props;
+          this.setState({ signaturesRecord: res.data });
+          if (recodeOnLoadCB) {
+            recodeOnLoadCB(res.data);
+          }
+          return;
+        } else {
+          return Promise.reject(res.msg);
+        }
+      })
+      .catch(errMsg => {
+        message.error(errMsg);
+      });
   };
 
   render() {
-    const { imgData, selectSealData, pageNum } = this.state;
+    const { imgData, selectSealData, signaturesRecord, pageNum } = this.state;
     let { searchSelectUrl } = this.props;
-    // const { signatures } = this.props;
-    // const { signaturesRecord } = signatures;
     if (!searchSelectUrl) {
       searchSelectUrl = "/ms/api/v1/sc/signatureManagement/seals";
     }
@@ -362,10 +361,14 @@ class Contract extends React.Component {
               </div>
             </div>
           </Card>
-          {/* {signaturesRecord.length !== 0 && (
-            <div className={styles.recordList}>
+          {signaturesRecord.length !== 0 && (
+            <div className="recordList">
               {signaturesRecord.map(item => (
-                <Card title="签署历史" style={{ marginBottom: "10px" }}>
+                <Card
+                  title="签署历史"
+                  style={{ marginBottom: "10px" }}
+                  key={item.id}
+                >
                   <p>{item.signatory}</p>
                   <p>签署人：{item.signer}</p>
                   <p>签署时间：{item.signTime}</p>
@@ -373,7 +376,7 @@ class Contract extends React.Component {
                 </Card>
               ))}
             </div>
-          )} */}
+          )}
           <div className="operation">
             <a styles={{ float: "left" }}>定位盖章位置</a>
             <Button

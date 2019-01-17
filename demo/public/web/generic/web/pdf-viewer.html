@@ -388,6 +388,7 @@ See https://github.com/adobe-type-tools/cmap-resources
     let data1;
     const viewerContainer = document.getElementById('viewerContainer');
     const sealPicDom = document.getElementById('sealPic');
+    const pageDom = document.getElementById('page1');
     // 宽度缩放比率
     window.top.g_contractIframe.widthRatio = 1;
     let canvasWrapperOffsetWidth = 0;
@@ -405,8 +406,6 @@ See https://github.com/adobe-type-tools/cmap-resources
       const boundingClientRect = viewerContainer.getBoundingClientRect();
       sealTop = y - 32;
       sealLeft = x;
-      console.log(sealLeft);
-      console.log(boundingClientRect.left + boundingClientRect.width);
 
       if (sealTop < boundingClientRect.top - data1.height / 2 || 
       sealTop > (boundingClientRect.top + boundingClientRect.height - data1.height / 2) || 
@@ -440,22 +439,21 @@ See https://github.com/adobe-type-tools/cmap-resources
       sealPicDom.style.backgroundImage = `url(data:image/jpg;base64,${data1.imgData})`;
 
       var storage = window.localStorage;
-      const ratio = viewerContainer.clientWidth / 600;
-
-      console.log(data1.width);
-      //写入a字段
+      const ratio = page1.clientWidth / 600;
+      
+      //写入字段
       if (viewerContainer.scrollTop === 0) {
         storage["pageNum"] = 1;
       } else {
-        storage["pageNum"] = viewerContainer.scrollTop % (viewerContainer.clientHeight + 18);
+        console.log((sealTop + viewerContainer.scrollTop));
+        console.log((page1.clientHeight));
+        storage["pageNum"] = Math.floor((sealTop + viewerContainer.scrollTop) / (page1.clientHeight)) + 1;
       }
       
       storage["sealLeft"] = sealLeft * ratio;
       storage["sealTop"] = 850 - (sealTop) * ratio;
       storage["sealRight"] = (sealLeft + data1.width) * ratio;
       storage["sealBottom"] = 850 - (sealTop + data1.height) * ratio;
-
-      console.log(storage);
       
     }
     clearSealImg = () => {

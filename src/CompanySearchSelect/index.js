@@ -9,7 +9,7 @@ export default class CompanySearchSelect extends React.Component {
         valueFieldName="id"
         queryFieldName="companyName"
         notFoundContent="找不到该公司"
-        url="/ms/api/v1/uc/company/queryLikeName"
+        url="/api/v1/ucenter/company/queryLikeName"
         {...this.props}
       />
     );

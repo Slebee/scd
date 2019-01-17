@@ -6,11 +6,20 @@ export default class UploadImageSample extends Component {
   static propTypes = {
     /** 预览图片的url地址 */
     previewImage: PropTypes.string,
+
+    /** 预览图片的url地址，详细图 */
+    url: PropTypes.string,
+
+    /** 预览图片的url地址，预览图 */
+    thumbUrl: PropTypes.string,
+
     /** Modal的props */
     modalProps: PropTypes.object
   };
   static defaultProps = {
     previewImage:
+      "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    thumbUrl:
       "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
     modalProps: {}
   };
@@ -28,7 +37,7 @@ export default class UploadImageSample extends Component {
   };
   render() {
     const { previewVisible } = this.state;
-    const { previewImage, modalProps } = this.props;
+    const { previewImage, modalProps, url, thumbUrl } = this.props;
     return (
       <React.Fragment>
         <div
@@ -44,8 +53,8 @@ export default class UploadImageSample extends Component {
               <span>
                 <img
                   className="ant-upload-list-item-thumbnail"
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                  alt="xxx.png"
+                  src={thumbUrl || previewImage}
+                  alt="thumbUrl"
                   style={{ height: 55 }}
                 />
                 <p style={{ textAlign: "center", marginTop: 5 }}>示例图</p>
@@ -59,7 +68,11 @@ export default class UploadImageSample extends Component {
           onCancel={this.handleCancel}
           {...modalProps}
         >
-          <img alt="example" style={{ width: "100%" }} src={previewImage} />
+          <img
+            alt="example"
+            style={{ width: "100%" }}
+            src={url || previewImage}
+          />
         </Modal>
       </React.Fragment>
     );

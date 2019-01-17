@@ -2,7 +2,6 @@
 // api-connector.js
 import { connect } from "react-refetch";
 import { getToken } from "./index";
-import { processBuildUrlDomain } from ".";
 // import request from './request';
 connect.options({ withRef: true });
 function parse(cause) {
@@ -36,7 +35,7 @@ const csvConnector = connect.defaults({
       }
     };
 
-    return new Request(processBuildUrlDomain(mapping.url), options);
+    return new Request(mapping.url, options);
   },
   handleResponse(response) {
     if (response.status === 401) {

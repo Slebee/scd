@@ -69,7 +69,9 @@ export default class CustomUpload extends Component {
               },
               {
                 withCredentials,
-                headers
+                headers:{
+                    'token': Cookies.get('token')
+                }
               }
             );
           })

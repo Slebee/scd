@@ -21,7 +21,6 @@ const list = [
     '/register/Agreement',
     '/register/agreement',
     '/resetPassword',
-  
   ]
   
   function composeMenus(list, data) {
@@ -41,7 +40,7 @@ const list = [
     if(url.indexOf("?") !== -1){
       return url.split("?")[0].slice(1,url.length);
     }
-    return ''
+    return url.slice(1,url.length);
   }
   
   const Breadcrumbs = ({ route, location, removeList=[], breadcrumbOptions }) => {

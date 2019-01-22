@@ -50,8 +50,9 @@ const list = [
           name = window.location.pathname, //str = name.replace(/\//g,'');
           oPath = location.pathname.toLowerCase();
           //getPathname(window.location.hash)
+          console.log(getPathname(window.location.hash) , oPath.toLowerCase())
           const isShow = getPathname(window.location.hash) === oPath.toLowerCase()
-    if (routes && Array.isArray(routes) && !isShow) {
+    if (routes && Array.isArray(routes) && isShow) {
       const AntdBreadcrumb = withBreadcrumbs(routes)(({ breadcrumbs }) => {
         // const data = breadcrumbs.filter(item =>item.props.location.pathname.toLowerCase() === oPath.toLowerCase()).length < 1
         // if (data) return null
@@ -103,4 +104,5 @@ const list = [
     breadcrumbOptions: PropTypes.object
   }
   export default Breadcrumbs;
+  
   

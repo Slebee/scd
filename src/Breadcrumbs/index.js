@@ -38,9 +38,9 @@ const list = [
   
   function getPathname(url) {
     if(url.indexOf("?") !== -1){
-      return url.split("?")[0].slice(1,url.length);
+      return url.split("?")[0].slice(1,url.length).toLowerCase();
     }
-    return url.slice(1,url.length);
+    return url.slice(1,url.length).toLowerCase();
   }
   
   const Breadcrumbs = ({ route, location, removeList=[], breadcrumbOptions }) => {
@@ -50,8 +50,8 @@ const list = [
           name = window.location.pathname, //str = name.replace(/\//g,'');
           oPath = location.pathname.toLowerCase();
           //getPathname(window.location.hash)
-          console.log(getPathname(window.location.hash) , oPath.toLowerCase())
-          const isShow = getPathname(window.location.hash) === oPath.toLowerCase()
+          console.log(getPathname(window.location.hash) , oPath)
+          const isShow = getPathname(window.location.hash) === oPath
     if (routes && Array.isArray(routes) && isShow) {
       const AntdBreadcrumb = withBreadcrumbs(routes)(({ breadcrumbs }) => {
         // const data = breadcrumbs.filter(item =>item.props.location.pathname.toLowerCase() === oPath.toLowerCase()).length < 1

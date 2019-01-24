@@ -168,14 +168,15 @@ class StandardTable extends PureComponent {
           </div>
         )}
         <Table
-          loading={loading}
-          rowKey={rowKey}
-          rowSelection={nextRowSelection}
-          dataSource={list}
-          columns={columns}
-          pagination={paginationProps}
-          onChange={this.handleTableChange}
-          scroll={scroll}
+            {...this.props}
+            loading={loading}
+            rowKey={rowKey}
+            rowSelection={nextRowSelection}
+            dataSource={list}
+            columns={columns}
+            pagination={paginationProps}
+            onChange={this.handleTableChange}
+            scroll={scroll}
         />
       </div>
     );

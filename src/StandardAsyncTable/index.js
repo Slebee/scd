@@ -127,10 +127,10 @@ class StandardAsyncTable extends Component {
   };
 
   render() {
-    const { rowKey, columns, dataFetch, scroll, rowSelection } = this.props;
+    const { rowKey, columns, dataFetch, scroll, rowSelection, tableOptiProps } = this.props;
     return (
       <StandardTable
-        {...this.props}
+        tableOptiProps={tableOptiProps}
         rowSelection={rowSelection}
         rowKey={rowKey}
         // eslint-disable-next-line

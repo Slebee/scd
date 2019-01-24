@@ -69,7 +69,9 @@ class StandardAsyncTable extends Component {
     rowSelection: PropTypes.object,
 
     /** url */
-    url: PropTypes.string.isRequired
+    url: PropTypes.string.isRequired,
+    /** table 的 props*/
+    tableOptiProps: PropTypes.object,
   };
 
   static defaultProps = {

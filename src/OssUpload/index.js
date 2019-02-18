@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import fileToMd5 from "./fileToMd5";
 import Base64 from "./Base64";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const CONTENT_TYPES = {
   picture: "image/png",
@@ -68,7 +69,9 @@ export default class CustomUpload extends Component {
               },
               {
                 withCredentials,
-                headers
+                headers:{
+                    'token': Cookies.get('token')
+                }
               }
             );
           })
@@ -84,7 +87,8 @@ export default class CustomUpload extends Component {
                   "Content-MD5": base64Content,
                   "x-oss-callback": ossCallback,
                   "x-oss-callback-var": ossCallbackVar,
-                  "content-type": props.contentType
+                  "content-type": props.contentType,
+                  'token': Cookies.get('token')
                 },
                 onUploadProgress: ({ total, loaded }) => {
                   onProgress(

@@ -69,7 +69,9 @@ class StandardAsyncTable extends Component {
     rowSelection: PropTypes.object,
 
     /** url */
-    url: PropTypes.string.isRequired
+    url: PropTypes.string.isRequired,
+    /** table 的 props*/
+    tableOptiProps: PropTypes.object,
   };
 
   static defaultProps = {
@@ -127,9 +129,10 @@ class StandardAsyncTable extends Component {
   };
 
   render() {
-    const { rowKey, columns, dataFetch, scroll, rowSelection } = this.props;
+    const { rowKey, columns, dataFetch, scroll, rowSelection, tableOptiProps } = this.props;
     return (
       <StandardTable
+        tableOptiProps={tableOptiProps}
         rowSelection={rowSelection}
         rowKey={rowKey}
         // eslint-disable-next-line

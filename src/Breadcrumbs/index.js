@@ -66,7 +66,7 @@ const list = [
               )
             }
             {breadcrumbs.map((breadcrumb, index) => {
-              if(breadcrumb && breadcrumb.key==='/') return
+              if(breadcrumb && (breadcrumb.key==='/'|| breadcrumb.key==='/dashboard')) return
               return (
                   <Breadcrumb.Item key={breadcrumb.key}>
                     {breadcrumbs.length - 1 === index ? (

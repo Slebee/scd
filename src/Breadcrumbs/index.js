@@ -4,25 +4,16 @@ import withBreadcrumbs from 'react-router-breadcrumbs-hoc';
 import { Breadcrumb } from 'antd';
 import PropTypes from 'prop-types'
 
-// const data = [
-//   '/my-company/', //公司列表
-//   '/messages/', //消息
-//   '/home/', //首页
-//   '/organization/', //组织
-//   '/user-center/', //登录
-//   '/help/', //帮助中心
-//   '/todo/', //待办
-//   '/project/', //项目
-// ];
-
 const list = [
     '/login',
+    '/login/',
     '/register',
     '/register/Agreement',
     '/register/agreement',
     '/resetPassword',
+    '/resetPassword/result',
   ]
-  
+
   function composeMenus(list, data) {
     const arr = [];
     list.forEach((item) => {
@@ -36,23 +27,14 @@ const list = [
     return arr;
   }
   
-  function getPathname(url) {
-    if(url.indexOf("?") !== -1){
-      return url.split("?")[0].slice(1,url.length).toLowerCase();
-    }
-    return url.slice(1,url.length).toLowerCase();
-  }
-  
   const Breadcrumbs = ({ route, location, removeList=[], breadcrumbOptions }) => {
   
     const array = list.concat(removeList),
           routes = composeMenus(route.routes, array),
-          name = window.location.pathname, //str = name.replace(/\//g,'');
+          name = window.location.pathname.toLowerCase(), //str = name.replace(/\//g,'');
           oPath = location.pathname.toLowerCase();
-          //getPathname(window.location.hash)
-          console.log(getPathname(window.location.hash) , oPath)
-          const isShow = getPathname(window.location.hash) === oPath
-    if (routes && Array.isArray(routes) && isShow) {
+          //console.log(routes, oPath)
+    if (routes && Array.isArray(routes) && (name === oPath)) {
       const AntdBreadcrumb = withBreadcrumbs(routes)(({ breadcrumbs }) => {
         // const data = breadcrumbs.filter(item =>item.props.location.pathname.toLowerCase() === oPath.toLowerCase()).length < 1
         // if (data) return null
@@ -61,12 +43,12 @@ const list = [
             height: '40px', lineHeight:'40px', padding: '0px 40px', background:'#fcfcfc'
           }}>
             {
-              name !== '/' && (
-                <Breadcrumb.Item key={name}><a href="/home/#/dashboard">工作台</a></Breadcrumb.Item>
+              name !== '/dashboard' && (
+                <Breadcrumb.Item key={name}><a href="/dashboard">工作台</a></Breadcrumb.Item>
               )
             }
             {breadcrumbs.map((breadcrumb, index) => {
-              if(breadcrumb && (breadcrumb.key==='/'|| breadcrumb.key==='/dashboard')) return
+              if(breadcrumb && (breadcrumb.key==='/'|| breadcrumb.key==='/dashboard') ) return null
               return (
                   <Breadcrumb.Item key={breadcrumb.key}>
                     {breadcrumbs.length - 1 === index ? (
@@ -104,5 +86,4 @@ const list = [
     breadcrumbOptions: PropTypes.object
   }
   export default Breadcrumbs;
-  
   

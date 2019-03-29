@@ -76,7 +76,7 @@ export default class SearchTable extends Component {
     const { ownParams } = this.state;
     this.setParams({
       ...ownParams,
-      //_t: Date.now()
+      _t: Date.now()
     });
     return this;
   };

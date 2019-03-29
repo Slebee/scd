@@ -91,7 +91,7 @@ class StandardFilter extends Component {
                 style={{ marginRight: 5 }}
                 onSubmit={this.okHandle}
               >
-                搜索
+                查询
               </Button>
               <Button onClick={this.resetFields}>重置</Button>
             </Col>

@@ -9,8 +9,8 @@ const defaultData = {
   list: [],
   pagination: undefined
 };
-@connect(({ url, params }) => ({
-  refreshData: pageParams => ({
+@connect(({ url, params, pagination }) => ({
+  refreshData: (pageParams) => ({
     dataFetch: {
       url: `${url}?${qs.stringify({ ...pageParams, ...params })}`,
       method: "GET",
@@ -42,8 +42,9 @@ const defaultData = {
               "80",
               "90",
               "100"
-            ]
-          }
+            ],
+            ...pagination
+          },
         }
       })
     }
@@ -72,6 +73,9 @@ class StandardAsyncTable extends Component {
     url: PropTypes.string.isRequired,
     /** table 的 props*/
     tableOptiProps: PropTypes.object,
+    
+    /** pagination 的 props*/
+    pagination: PropTypes.object,
   };
 
   static defaultProps = {
@@ -102,8 +106,8 @@ class StandardAsyncTable extends Component {
   }
 
   componentDidMount() {
-    const { refreshData, fetchOnDidMount } = this.props;
-    if (fetchOnDidMount) refreshData();
+    const { refreshData, fetchOnDidMount, pagination } = this.props;
+    if (fetchOnDidMount) refreshData({}, pagination);
   }
 
   componentWillReceiveProps(nextProps) {

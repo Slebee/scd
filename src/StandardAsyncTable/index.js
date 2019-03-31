@@ -9,8 +9,8 @@ const defaultData = {
   list: [],
   pagination: undefined
 };
-@connect(({ url, params }) => ({
-  refreshData: (pageParams, pagination) => ({
+@connect(({ url, params, pagination }) => ({
+  refreshData: (pageParams) => ({
     dataFetch: {
       url: `${url}?${qs.stringify({ ...pageParams, ...params })}`,
       method: "GET",

@@ -8,7 +8,14 @@ import connect from "../utils/api-connector";
 @connect(({ url, params, pagination }) => ({
   refreshData: (pageParams) => ({
     dataFetch: {
-      url: `${url}?${qs.stringify({ pageSize: pagination.pageSize, ...pageParams, ...params })}`,
+      url: `${url}?${qs.stringify({ 
+          ...pagination,
+        //   pageSize: pagination.pageSize, 
+        //   current: pagination.current, 
+        //   pageSizeOptions: pagination.pageSizeOptions, 
+          ...pageParams, 
+          ...params 
+        })}`,
       method: "GET",
       // body: JSON.stringify({ ...pageParams, ...params }),
       force: true,

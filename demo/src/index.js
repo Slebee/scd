@@ -5,6 +5,7 @@ import CitySelect from "../../src/CitySelect";
 import ModalWithForm from "../../src/ModalWithForm";
 import UploadImageSample from "../../src/UploadImageSample";
 import SearchTable from "../../src/SearchTable";
+import StandardAsyncTable from "../../src/StandardAsyncTable";
 import StandardForm from "../../src/StandardForm";
 import OssUpload from "../../src/OssUpload";
 import { Form, Button } from "antd";
@@ -37,6 +38,15 @@ class Demo extends Component {
         dataIndex: "uploadFileCode"
       }
     ];
+
+    const standardAsyncTable_Columns = [
+        { title: "名称", dataIndex: "name" },
+        {
+          title: "状态",
+          dataIndex: "state",
+          sorter: true
+        }
+      ];
     const { form } = this.props;
     return (
       <div style={{ background: "#ccc" }}>
@@ -104,7 +114,7 @@ class Demo extends Component {
           </StandardForm>
         </div>
         <div style={{ background: "#fefefe", marginTop: 100 }}>
-          <SearchTable
+          <StandardAsyncTable
             rowKey="id"
             url="/ms/api/v1/file-config/queryUploadFileConfigInfo"
             columns={columns}
@@ -131,6 +141,15 @@ class Demo extends Component {
               }
             ]}
           />
+        </div>
+
+        <div style={{ background: "#fefefe", marginTop: 100 }}>
+            <StandardAsyncTable
+                url="https://www.easy-mock.com/mock/5c305766e679224c062781b7/spacecloud-ucenter-app/api/v1/ucenter/company/selectMy"
+                rowKey="id"
+                title="页面列表页"
+                columns={standardAsyncTable_Columns}
+            />
         </div>
       </div>
     );

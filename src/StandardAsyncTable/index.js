@@ -107,7 +107,7 @@ class StandardAsyncTable extends Component {
 
   componentDidMount() {
     const { refreshData, fetchOnDidMount, pagination } = this.props;
-    if (fetchOnDidMount) refreshData({}, pagination);
+    if (fetchOnDidMount) refreshData(pagination);
   }
 
   componentWillReceiveProps(nextProps) {

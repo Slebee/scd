@@ -5,14 +5,10 @@ import qs from "qs";
 import { isEqual } from "lodash";
 import connect from "../utils/api-connector";
 
-const defaultData = {
-  list: [],
-  pagination: undefined
-};
 @connect(({ url, params, pagination }) => ({
   refreshData: (pageParams) => ({
     dataFetch: {
-      url: `${url}?${qs.stringify({ ...pageParams, ...params })}`,
+      url: `${url}?${qs.stringify({ pageSize: pagination.pageSize, ...pageParams, ...params })}`,
       method: "GET",
       // body: JSON.stringify({ ...pageParams, ...params }),
       force: true,
@@ -106,8 +102,8 @@ class StandardAsyncTable extends Component {
   }
 
   componentDidMount() {
-    const { refreshData, fetchOnDidMount, pagination } = this.props;
-    if (fetchOnDidMount) refreshData(pagination);
+    const { refreshData, fetchOnDidMount } = this.props;
+    if (fetchOnDidMount) refreshData({});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -133,7 +129,11 @@ class StandardAsyncTable extends Component {
   };
 
   render() {
-    const { rowKey, columns, dataFetch, scroll, rowSelection, tableOptiProps } = this.props;
+    const { rowKey, columns, dataFetch, scroll, rowSelection, tableOptiProps, pagination } = this.props;
+    const defaultData = {
+        list: [],
+        pagination,
+      };
     return (
       <StandardTable
         tableOptiProps={tableOptiProps}

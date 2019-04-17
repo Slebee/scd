@@ -114,6 +114,7 @@ class Demo extends Component {
           </StandardForm>
         </div>
         <div style={{ background: "#fefefe", marginTop: 100 }}>
+            <h1>StandardAsyncTable</h1>
           <StandardAsyncTable
             rowKey="id"
             url="/ms/api/v1/file-config/queryUploadFileConfigInfo"
@@ -140,15 +141,34 @@ class Demo extends Component {
                 }
               }
             ]}
+            pagination={{ pageSize: 5 }}
           />
         </div>
 
         <div style={{ background: "#fefefe", marginTop: 100 }}>
-            <StandardAsyncTable
-                url="https://www.easy-mock.com/mock/5c305766e679224c062781b7/spacecloud-ucenter-app/api/v1/ucenter/company/selectMy"
+            <h1>SearchTable</h1>
+            <SearchTable
+                url="https://test-gateway.servingcloud.com/api/v1/ucenter/message/getMessageList"
                 rowKey="id"
                 title="页面列表页"
-                columns={standardAsyncTable_Columns}
+                fields={[
+                    {
+                      id: "billCode",
+                      span: 10,
+                      formItemOptions: {
+                        label: "付款单号"
+                      }
+                    }
+                  ]}
+                columns={[
+                    { title: "名称", dataIndex: "subject" },
+                    {
+                      title: "状态",
+                      dataIndex: "id",
+                      sorter: true
+                    }
+                  ]}
+                pagination={{ pageSize: 5 }}
             />
         </div>
       </div>

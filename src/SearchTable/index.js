@@ -41,7 +41,9 @@ export default class SearchTable extends Component {
     /** 发起请求前回调，可以对fields进行手动修改 */
     beforeSubmit: PropTypes.func,
     /** 介于搜索栏与表格栏中间的节点 */
-    actions: PropTypes.oneOfType([PropTypes.string, PropTypes.element])
+    actions: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+     /** pagination 的 props*/
+     pagination: PropTypes.object,
   };
 
   static defaultProps = {
@@ -55,7 +57,8 @@ export default class SearchTable extends Component {
     scroll: undefined,
     rowSelection: undefined,
     beforeSubmit: values => values,
-    actions: undefined
+    actions: undefined,
+    pagination: undefined,
   };
 
   static TableTextItem = TextItem;
@@ -101,7 +104,8 @@ export default class SearchTable extends Component {
       rowSelection,
       beforeSubmit,
       extra,
-      actions
+      actions,
+      pagination,
     } = this.props;
     const { ownParams } = this.state;
     const nextPrams = {
@@ -131,6 +135,7 @@ export default class SearchTable extends Component {
             scroll={scroll}
             rowKey={rowKey}
             columns={columns}
+            pagination={pagination}
           />
         </Card>
       </React.Fragment>

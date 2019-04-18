@@ -4,6 +4,7 @@ import { Layout, Menu, Row, Col, Icon, Modal, Avatar, Badge, } from 'antd';
 import Cookies from 'js-cookie';
 import connect from "../utils/api-connector";
 import PropTypes from "prop-types";
+import './index.less';
 
 const { Header } = Layout;
 const confirm = Modal.confirm;
@@ -49,10 +50,10 @@ const generateMenu = (menuData, isMap) => {
                       <a target="_blank" rel="noopener noreferrer" href={item.href}>
                           <Icon type={item.icon} style={{ fontSize: '16px' }}/>
                           {item.title}
-                      </a> 
+                      </a>
                   </Menu.Item>
               )
-          } 
+          }
           // else {
           //     menuList.push(
           //         <Menu.Item style={{ textAlign: 'center' }} key={item.key}>
@@ -60,7 +61,7 @@ const generateMenu = (menuData, isMap) => {
           //         </Menu.Item>
           //     )
           // }
-      }   
+      }
       return menuList;
   }, [])
 };
@@ -150,7 +151,6 @@ class CommonHeader extends Component {
         title: '系统提示',
         content: '确定要退出吗',
         onOk: () => {
-          Cookies.remove('token')
           window.location.href='/login'
           //router.replace('/login');
           this.props.onLogout();
@@ -170,7 +170,7 @@ class CommonHeader extends Component {
     return (
       <Header style={{ backgroundColor: '#0F83E6', padding: '0 40px' }}>
           <Row type="flex" justify="space-between" style={{ margin: '0 auto', overflow: 'hidden', minWidth: 944 }}>
-              <Col> 
+              <Col>
                 <div style={{ fontSize: '18px', color: ' #fff' }}>
                   公司名称：<span>{ title }</span>
                 </div>
@@ -182,7 +182,7 @@ class CommonHeader extends Component {
                       onClick={this.handleLogout}
                       style={{ width: 'auto', float: 'right', marginRight: '-20px', height: 64, }}
                       className="globalMenuRoot"
-                  > 
+                  >
                       <Menu.Item key="messages" className="globalMenu">
                           <Badge count={(msgFulfilled && msgVal &&  parseInt(msgVal, 0)) || 0}>
                               <a rel="noopener noreferrer" style={{ color: '#fff' }} href={'/messages'}>

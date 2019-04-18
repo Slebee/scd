@@ -37,6 +37,7 @@ import { UploadImageSample } from 'scd';
 - [ ] SearchTable 结合 `AsyncTable` 与 `SearchFilter` 的封装 @润彬
 - [x] ModalWithTrigger 提供一个通过(按钮|文字|自定义元素)触发 Modal 的弹出层 @润彬
 - [x] StandardForm 标准 Form @润彬
+- [x] CommonHeader 通用头部组件 @叶才华
 
 ## 开发指南
 

@@ -8,6 +8,8 @@ import SearchTable from "../../src/SearchTable";
 import StandardAsyncTable from "../../src/StandardAsyncTable";
 import StandardForm from "../../src/StandardForm";
 import OssUpload from "../../src/OssUpload";
+import CommonHeader from "../../src/CommonHeader";
+
 import { Form, Button } from "antd";
 
 @Form.create()
@@ -169,6 +171,16 @@ class Demo extends Component {
                     }
                   ]}
                 pagination={{ pageSize: 5 }}
+            />
+        </div>
+
+        <div style={{ background: "#fefefe", marginTop: 100 }}>
+            <h1>CommonHeader</h1>
+            <CommonHeader 
+                msgUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/message/getNotReadCount'
+                menuAuthUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/resources/getUserResources'
+                userInfoUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/getuser/info'
+                title='盈佳云创科技有限公司'  
             />
         </div>
       </div>

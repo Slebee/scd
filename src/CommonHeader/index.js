@@ -11,7 +11,7 @@ const confirm = Modal.confirm;
 const SubMenu = Menu.SubMenu;
 
 // 权限菜单编码
-export const AUTH_MENU = {
+const AUTH_MENU = {
   // 我的待办
   'G01585000': {
     icon: 'solution',
@@ -31,60 +31,63 @@ export const AUTH_MENU = {
     icon: 'download',
     key: 'exit',
     isMap: 'user'
+  },
+  'G01704004': {
+    icon: 'download',
+    key: 'electronicSignature',
+    isMap: 'user'
   }
-}
-
-// 生成个人中心下拉菜单
-const generateMenu = (menuData, isMap) => {
-  return menuData.reduce((menuList, item) => {
-      if (item.isMap === isMap) {
-          if ( isMap === 'product') {
-              menuList.push(
-                  <Menu.Item style={{ textAlign: 'center' }} key={item.key}>
-                      <a target="_blank" rel="noopener noreferrer" href={item.href} >{item.title}</a>
-                  </Menu.Item>
-              )
-          } else if ( isMap === 'user') {
-              menuList.push(
-                  <Menu.Item style={{ marginLeft: '5px' }} key={item.key}>
-                      <a target="_blank" rel="noopener noreferrer" href={item.href}>
-                          <Icon type={item.icon} style={{ fontSize: '16px' }}/>
-                          {item.title}
-                      </a>
-                  </Menu.Item>
-              )
-          }
-          // else {
-          //     menuList.push(
-          //         <Menu.Item style={{ textAlign: 'center' }} key={item.key}>
-          //            <a rel="noopener noreferrer"  href={item.href} >{item.title}</a>
-          //         </Menu.Item>
-          //     )
-          // }
-      }
-      return menuList;
-  }, [])
 };
 
 
-@connect(({ menuAuthUrl, msgUrl, userInfoUrl, title, onLogout }) => ({
+  // 构建权限菜单
+const genMenuList = (val) => {
+  let menuList = val.reduce((authMenu, item) => {
+    for (let key in AUTH_MENU) {
+      if (item.code === key) {
+        authMenu.push({
+          title: item.name,
+          icon: AUTH_MENU[key].icon,
+          key: AUTH_MENU[key].key,
+          href: AUTH_MENU[key].href,
+          isMap: AUTH_MENU[key].isMap,
+        });
+      }
+    }
+    return authMenu;
+  }, []);
+  menuList.unshift({
+    title:'个人中心',
+    icon: 'user',
+    key: 'userCenter',
+    href: '/userCenter',
+    isMap: 'user',
+  });
+  return menuList;
+}
+
+
+const DEFAULT_MENUAUTHURL ='https://test-gateway.servingcloud.com/api/v1/ucenter/resources/getUserResources',
+      DEFAULT_MSGURL ='https://test-gateway.servingcloud.com/api/v1/ucenter/message/getNotReadCount',
+      DEFAULT_USERINFOURL ='https://test-gateway.servingcloud.com/api/v1/ucenter/getuser/info';
+@connect(({ menuAuthUrl, msgUrl, userInfoUrl, title }) => ({
   // 权限菜单请请求接口
   menuFetch: {
-    url: menuAuthUrl,
+    url: menuAuthUrl || DEFAULT_MENUAUTHURL,
     then: ({ data }) => ({
       value: data
     })
   },
   // 未读消息请求接口
   msgFetch: {
-    url: msgUrl,
+    url: msgUrl || DEFAULT_MSGURL,
     then: ({ data }) => ({
       value: data
     })
   },
   // 用户信息请求接口
   userInfoFetch: {
-    url: userInfoUrl,
+    url: userInfoUrl || DEFAULT_USERINFOURL,
     then: ({ data }) => ({
       value: data
     })
@@ -95,51 +98,65 @@ const generateMenu = (menuData, isMap) => {
 class CommonHeader extends Component {
   static propTypes = {
     // 权限菜单请请求地址
-    menuAuthUrl: PropTypes.string.isRequired,
+    menuAuthUrl: PropTypes.string,
     // 公告消息请求地址
-    msgUrl: PropTypes.string.isRequired,
+    msgUrl: PropTypes.string,
     // 用户信息请求地址
-    userInfoUrl: PropTypes.string.isRequired,
+    userInfoUrl: PropTypes.string,
     // 导航title
     title: PropTypes.string.isRequired,
     // 退出登录的回调
-    onLogout: PropTypes.func
+    onLogout: PropTypes.func,
+    // 点击菜单的回调
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
-    onLogout: () => {}
+    onLogout: () => {},
+    onClick: () => {}
   };
 
-  // 构建权限菜单
-  genMenuList = (val) => {
-    let menuList = val.reduce((authMenu, item) => {
-      for (let key in AUTH_MENU) {
-        if (item.code === key) {
-          authMenu.push({
-            title: item.name,
-            icon: AUTH_MENU[key].icon,
-            key: AUTH_MENU[key].key,
-            href: AUTH_MENU[key].href,
-            isMap: AUTH_MENU[key].isMap,
-          });
-        }
+  state = {
+    authMenu: [
+      {
+        title:'退出',
+        icon: 'logout',
+        key: 'exit',
+        isMap: 'user',
       }
-      return authMenu;
-    }, []);
-    menuList.unshift({
-      title:'个人中心',
-      icon: 'user',
-      key: 'userCenter',
-      href: '/userCenter',
-      isMap: 'user',
-    });
-    menuList.push({
-      title:'退出',
-      icon: 'logout',
-      key: 'exit',
-      isMap: 'user',
-    });
-    return menuList;
+    ]
+  }
+
+  // 生成个人中心下拉菜单
+ generateMenu = (menuData, isMap, handleClick) => {
+    return menuData.reduce((menuList, item) => {
+        if (item.isMap === isMap) {
+            if ( isMap === 'product') {
+                menuList.push(
+                    <Menu.Item style={{ textAlign: 'center' }} key={item.key} onClick={handleClick}>
+                        <a target="_blank" rel="noopener noreferrer" href={item.href} >{item.title}</a>
+                    </Menu.Item>
+                )
+            } else if ( isMap === 'user') {
+                menuList.push(
+                    <Menu.Item style={{ marginLeft: '5px' }} key={item.key} onClick={handleClick}>
+                        <a target="_blank" rel="noopener noreferrer" href={item.href}>
+                            <Icon type={item.icon} style={{ fontSize: '16px' }}/>
+                            {item.title}
+                        </a>
+                    </Menu.Item>
+                )
+            }
+            // else {
+            //     menuList.push(
+            //         <Menu.Item style={{ textAlign: 'center' }} key={item.key}>
+            //            <a rel="noopener noreferrer"  href={item.href} >{item.title}</a>
+            //         </Menu.Item>
+            //     )
+            // }
+        }
+        return menuList;
+    }, [])
   }
 
   // 退出
@@ -151,17 +168,26 @@ class CommonHeader extends Component {
         title: '系统提示',
         content: '确定要退出吗',
         onOk: () => {
+          Cookies.remove('token')
           window.location.href='/login'
-          //router.replace('/login');
           this.props.onLogout();
         },
       });
     }
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.menuFetch.fulfilled) {
+      let menu = genMenuList(nextProps.menuFetch.value);
+      return {
+        authMenu: [...menu, ...prevState.authMenu]
+      }
+    }
+    return null;
+  }
+  
   render() {
     const {
-      menuFetch: { fulfilled: menuFulfilled, value: menuVal },
       msgFetch: { fulfilled: msgFulfilled, value: msgVal},
       userInfoFetch: { fulfilled: userFulfilled, value: userVal },
       title
@@ -202,9 +228,7 @@ class CommonHeader extends Component {
                               </a>
                           }
                       >
-                          {
-                            menuFulfilled && menuVal && generateMenu(this.genMenuList(menuVal), 'user')
-                          }
+                          {this.generateMenu(this.state.authMenu, 'user', this.props.onClick)}
                       </SubMenu>
                   </Menu>
               </Col>

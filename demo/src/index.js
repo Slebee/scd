@@ -5,8 +5,11 @@ import CitySelect from "../../src/CitySelect";
 import ModalWithForm from "../../src/ModalWithForm";
 import UploadImageSample from "../../src/UploadImageSample";
 import SearchTable from "../../src/SearchTable";
+import StandardAsyncTable from "../../src/StandardAsyncTable";
 import StandardForm from "../../src/StandardForm";
 import OssUpload from "../../src/OssUpload";
+import CommonHeader from "../../src/CommonHeader";
+
 import { Form, Button } from "antd";
 
 @Form.create()
@@ -37,6 +40,15 @@ class Demo extends Component {
         dataIndex: "uploadFileCode"
       }
     ];
+
+    const standardAsyncTable_Columns = [
+        { title: "名称", dataIndex: "name" },
+        {
+          title: "状态",
+          dataIndex: "state",
+          sorter: true
+        }
+      ];
     const { form } = this.props;
     return (
       <div style={{ background: "#ccc" }}>
@@ -104,7 +116,8 @@ class Demo extends Component {
           </StandardForm>
         </div>
         <div style={{ background: "#fefefe", marginTop: 100 }}>
-          <SearchTable
+            <h1>StandardAsyncTable</h1>
+          <StandardAsyncTable
             rowKey="id"
             url="/ms/api/v1/file-config/queryUploadFileConfigInfo"
             columns={columns}
@@ -130,7 +143,45 @@ class Demo extends Component {
                 }
               }
             ]}
+            pagination={{ pageSize: 5 }}
           />
+        </div>
+
+        <div style={{ background: "#fefefe", marginTop: 100 }}>
+            <h1>SearchTable</h1>
+            <SearchTable
+                url="https://test-gateway.servingcloud.com/api/v1/ucenter/message/getMessageList"
+                rowKey="id"
+                title="页面列表页"
+                fields={[
+                    {
+                      id: "billCode",
+                      span: 10,
+                      formItemOptions: {
+                        label: "付款单号"
+                      }
+                    }
+                  ]}
+                columns={[
+                    { title: "名称", dataIndex: "subject" },
+                    {
+                      title: "状态",
+                      dataIndex: "id",
+                      sorter: true
+                    }
+                  ]}
+                pagination={{ pageSize: 5 }}
+            />
+        </div>
+
+        <div style={{ background: "#fefefe", marginTop: 100 }}>
+            <h1>CommonHeader</h1>
+            <CommonHeader 
+                msgUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/message/getNotReadCount'
+                menuAuthUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/resources/getUserResources'
+                userInfoUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/getuser/info'
+                title='盈佳云创科技有限公司'  
+            />
         </div>
       </div>
     );

@@ -1,0 +1,27 @@
+---
+name: 
+---
+
+import { Playground, PropsTable } from "docz";
+import CommonHeader from "./index";
+
+# CommonHeader
+
+> 通用头部组件
+
+## Basic Usage
+
+<Playground>
+  <CommonHeader 
+    msgUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/message/getNotReadCount'
+    menuAuthUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/resources/getUserResources'
+    userInfoUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/getuser/info'
+    title='盈佳云创科技有限公司'  
+    onLogout={logout}
+  />
+
+</Playground>
+
+## Props
+
+<PropsTable of={CommonHeader} />

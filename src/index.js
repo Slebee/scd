@@ -15,5 +15,6 @@ export Select from "./Select";
 export StandardForm from "./StandardForm";
 export StandardTable from "./StandardTable";
 export CommonHeader from "./CommonHeader";
+export ScrollSearchSelect from "./ScrollSearchSelect";
 
 export default "";

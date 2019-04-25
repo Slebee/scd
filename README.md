@@ -25,6 +25,7 @@ import { UploadImageSample } from 'scd';
 
 - [x] ProductLineSelect 产品线下拉选择 @润彬
 - [x] SearchSelect 模糊搜索下拉 @润彬
+- [x] ScrollSearchSelect 异步分页模糊搜索框 @丽元
 - [x] CompanySearchSelect 公司列表模糊查询下拉【基于 SearchSelect 封装数据源】 @slebee
 - [x] CitySelect 省市区选择 @润彬
 - [x] OssUpload OSS 文件上传 @润彬
@@ -38,6 +39,7 @@ import { UploadImageSample } from 'scd';
 - [x] ModalWithTrigger 提供一个通过(按钮|文字|自定义元素)触发 Modal 的弹出层 @润彬
 - [x] StandardForm 标准 Form @润彬
 - [x] CommonHeader 通用头部组件 @叶才华
+
 
 ## 开发指南
 

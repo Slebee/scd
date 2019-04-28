@@ -10,31 +10,38 @@ const { Header } = Layout;
 const confirm = Modal.confirm;
 const SubMenu = Menu.SubMenu;
 
+const IconFont = Icon.createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_1157489_hdovywho2do.js',
+});
+
 // 权限菜单编码
 const AUTH_MENU = {
   // 我的待办
   'G01585000': {
-    icon: 'solution',
+    icon: <Icon type='solution' style={{ fontSize: '16px' }}/>,
     key: 'todo',
     href: '/todo',
     isMap: 'user'
   },
   // 我的公司
   'G01615000': {
-    icon: 'home',
+    icon:  <Icon type='home' style={{ fontSize: '16px' }}/>,
     key: 'organization',
     href: '/myCompany',
     isMap: 'user'
   },
   // 文件下载
   'G01684004': {
-    icon: 'download',
-    key: 'exit',
+    icon:  <Icon type='download' style={{ fontSize: '16px' }}/>,
+    key: 'download',
+    href:'http://test-portal-vanke-xintech.servingcloud.com/download',
     isMap: 'user'
   },
+  // 电子签章
   'G01704004': {
-    icon: 'download',
+    icon: <IconFont type="icon-qianzhang" style={{ fontSize: '16px' }}/>,
     key: 'electronicSignature',
+    href: '/electronicSignature',
     isMap: 'user'
   }
 };
@@ -42,7 +49,7 @@ const AUTH_MENU = {
 
   // 构建权限菜单
 const genMenuList = (val) => {
-  let menuList = val.reduce((authMenu, item) => {
+ return val.reduce((authMenu, item) => {
     for (let key in AUTH_MENU) {
       if (item.code === key) {
         authMenu.push({
@@ -52,18 +59,22 @@ const genMenuList = (val) => {
           href: AUTH_MENU[key].href,
           isMap: AUTH_MENU[key].isMap,
         });
+      } else if (item.children.length) {
+        item.children.forEach(child => {
+          if (child.code === key) {
+            authMenu.push({
+              title: item.name,
+              icon: AUTH_MENU[key].icon,
+              key: AUTH_MENU[key].key,
+              href: AUTH_MENU[key].href,
+              isMap: AUTH_MENU[key].isMap,
+            });
+          }
+        });
       }
     }
     return authMenu;
   }, []);
-  menuList.unshift({
-    title:'个人中心',
-    icon: 'user',
-    key: 'userCenter',
-    href: '/userCenter',
-    isMap: 'user',
-  });
-  return menuList;
 }
 
 
@@ -119,12 +130,20 @@ class CommonHeader extends Component {
   state = {
     authMenu: [
       {
+        title:'个人中心',
+        icon: <Icon type='user' style={{ fontSize: '16px' }}/>,
+        key: 'userCenter',
+        href: '/userCenter',
+        isMap: 'user',
+      },
+      {
         title:'退出',
-        icon: 'logout',
+        icon: <Icon type='logout' style={{ fontSize: '16px' }}/>,
         key: 'exit',
         isMap: 'user',
-      }
-    ]
+      },
+    ],
+    isInit: false
   }
 
   // 生成个人中心下拉菜单
@@ -133,18 +152,18 @@ class CommonHeader extends Component {
         if (item.isMap === isMap) {
             if ( isMap === 'product') {
                 menuList.push(
-                    <Menu.Item style={{ textAlign: 'center' }} key={item.key} onClick={handleClick}>
-                        <a target="_blank" rel="noopener noreferrer" href={item.href} >{item.title}</a>
-                    </Menu.Item>
+                  <Menu.Item style={{ textAlign: 'center' }} key={item.key} onClick={handleClick}>
+                    <a target="_blank" rel="noopener noreferrer" href={item.href} >{item.title}</a>
+                  </Menu.Item>
                 )
             } else if ( isMap === 'user') {
                 menuList.push(
-                    <Menu.Item style={{ marginLeft: '5px' }} key={item.key} onClick={handleClick}>
-                        <a target="_blank" rel="noopener noreferrer" href={item.href}>
-                            <Icon type={item.icon} style={{ fontSize: '16px' }}/>
-                            {item.title}
-                        </a>
-                    </Menu.Item>
+                  <Menu.Item style={{ marginLeft: '5px' }} key={item.key} onClick={handleClick}>
+                    <a target="_blank" rel="noopener noreferrer" href={item.href}>
+                      {item.icon}
+                      {item.title}
+                    </a>
+                  </Menu.Item>
                 )
             }
             // else {
@@ -177,20 +196,27 @@ class CommonHeader extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.menuFetch.fulfilled) {
+    if (nextProps.menuFetch.fulfilled && !prevState.isInit) {
       let menu = genMenuList(nextProps.menuFetch.value);
-      return {
-        authMenu: [...menu, ...prevState.authMenu]
+      if (menu.length) {
+        let [first, last] = prevState.authMenu;
+        return {
+          authMenu: [first, ...menu, last],
+          isInit: true
+        }
+      } else {
+        return null;
       }
     }
     return null;
   }
-  
+
   render() {
     const {
       msgFetch: { fulfilled: msgFulfilled, value: msgVal},
       userInfoFetch: { fulfilled: userFulfilled, value: userVal },
-      title
+      title,
+      homeLink
     } = this.props;
 
     return (
@@ -204,32 +230,38 @@ class CommonHeader extends Component {
 
               <Col span={8}>
                   <Menu
-                      mode="horizontal"
-                      onClick={this.handleLogout}
-                      style={{ width: 'auto', float: 'right', marginRight: '-20px', height: 64, }}
-                      className="globalMenuRoot"
+                    mode="horizontal"
+                    onClick={this.handleLogout}
+                    style={{ width: 'auto', float: 'right', marginRight: '-20px', height: 64, }}
+                    className="globalMenuRoot"
                   >
-                      <Menu.Item key="messages" className="globalMenu">
-                          <Badge count={(msgFulfilled && msgVal &&  parseInt(msgVal, 0)) || 0}>
-                              <a rel="noopener noreferrer" style={{ color: '#fff' }} href={'/messages'}>
-                                  <Icon type="bell" />
-                              </a>
-                          </Badge>
-                      </Menu.Item>
+                    <Menu.Item key="home">
+                      <a rel="noopener noreferrer" style={{ color: '#fff' }} href={ homeLink === '/project' ? '/purchaser' :  homeLink}>
+                        首页
+                      </a>
+                    </Menu.Item>
 
-                      {/** 个人中心下拉菜单 **/}
-                      <SubMenu
-                          key="user"
-                          style={{ marginTop: '5px' }}
-                          title={
-                              <a style={{ color: '#fff', display: 'inline-block', textDecoration: 'none' }} to='/dashboard'>
-                                  <Avatar style={{ backgroundColor: '#ccc', marginRight: 5 }} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                  {userFulfilled && userVal && userVal.name}
-                              </a>
-                          }
-                      >
-                          {this.generateMenu(this.state.authMenu, 'user', this.props.onClick)}
-                      </SubMenu>
+                    <Menu.Item key="messages" className="globalMenu">
+                      <Badge count={(msgFulfilled && msgVal &&  parseInt(msgVal, 0)) || 0}>
+                          <a rel="noopener noreferrer" style={{ color: '#fff' }} href={'/messages'}>
+                              <Icon type="bell" />
+                          </a>
+                      </Badge>
+                    </Menu.Item>
+
+                    {/** 个人中心下拉菜单 **/}
+                    <SubMenu
+                      key="user"
+                      style={{ marginTop: '5px' }}
+                      title={
+                        <a style={{ color: '#fff', display: 'inline-block', textDecoration: 'none' }} to='/dashboard'>
+                            <Avatar style={{ backgroundColor: '#ccc', marginRight: 5 }} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                            {userFulfilled && userVal && userVal.name}
+                        </a>
+                      }
+                    >
+                      {this.generateMenu(this.state.authMenu, 'user', this.props.onClick)}
+                    </SubMenu>
                   </Menu>
               </Col>
         </Row>

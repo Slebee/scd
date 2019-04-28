@@ -124,18 +124,12 @@ class ScrollSearchSelect extends Component {
     const currentCount = value.list.length;
     const totalCount = value.total;
     // 如果滚动到底且列表已加载数据小于所有数据长度时，发送请求获取下一页数据
+    // if (target.scrollHeight - target.scrollTop - target.offsetHeight < 1 ) {
     if (target.scrollTop + target.offsetHeight === target.scrollHeight && currentCount < totalCount) {
       // scrollToEnd, do something!!!
       current++;
-      const { dataFetch, queryFieldName, data } = this.props;
-      dataFetch({ [queryFieldName]: this.state[queryFieldName], 'page': current }, data.value.list);
+      dataFetch({ [queryFieldName]: this.state[queryFieldName], 'page': current }, value.list);
     }
-
-    // if (target.scrollHeight - target.scrollTop - target.offsetHeight < 1 ) {
-    //   current++;
-    //   const { dataFetch, queryFieldName, data } = this.props;
-    //     dataFetch({ [queryFieldName]: this.state[queryFieldName], 'page': current }, data.value);
-    // }
   }
 
   render() {

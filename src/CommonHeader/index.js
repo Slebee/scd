@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Row, Col, Icon, Modal, Avatar, Badge, } from 'antd';
+import { Layout, Menu, Row, Col, Icon, Modal, Avatar, Badge, Button } from 'antd';
 //import router from 'umi/router';
 import Cookies from 'js-cookie';
 import connect from "../utils/api-connector";
@@ -78,44 +78,40 @@ const genMenuList = (val) => {
 }
 
 
-const DEFAULT_MENUAUTHURL ='https://test-gateway.servingcloud.com/api/v1/ucenter/resources/getUserResources',
-      DEFAULT_MSGURL ='https://test-gateway.servingcloud.com/api/v1/ucenter/message/getNotReadCount',
-      DEFAULT_USERINFOURL ='https://test-gateway.servingcloud.com/api/v1/ucenter/getuser/info';
-@connect(({ menuAuthUrl, msgUrl, userInfoUrl, title }) => ({
+@connect(({ baseURL = 'https://test-gateway.servingcloud.com' }) => ({
   // 权限菜单请请求接口
   menuFetch: {
-    url: menuAuthUrl || DEFAULT_MENUAUTHURL,
+    url: `${baseURL}/api/v1/ucenter/resources/getUserResources`,
     then: ({ data }) => ({
       value: data
     })
   },
   // 未读消息请求接口
   msgFetch: {
-    url: msgUrl || DEFAULT_MSGURL,
+    url: `${baseURL}/api/v1/ucenter/message/getNotReadCount`,
     then: ({ data }) => ({
       value: data
     })
   },
   // 用户信息请求接口
   userInfoFetch: {
-    url: userInfoUrl || DEFAULT_USERINFOURL,
+    url: `${baseURL}/api/v1/ucenter/getuser/info`,
     then: ({ data }) => ({
       value: data
     })
   },
-  // 头部标题
-  title
+  // 公司资源请求接口
+  compResourcesFetch: {
+    url: `${baseURL}/api/v1/ucenter/index/comp-resources`,
+    then: ({ data }) => ({
+      value: data
+    })
+  },
 }))
 class CommonHeader extends Component {
   static propTypes = {
-    // 权限菜单请请求地址
-    menuAuthUrl: PropTypes.string,
-    // 公告消息请求地址
-    msgUrl: PropTypes.string,
-    // 用户信息请求地址
-    userInfoUrl: PropTypes.string,
-    // 导航title
-    title: PropTypes.string.isRequired,
+    // 请求url前缀
+    baseURL: PropTypes.string,
     // 退出登录的回调
     onLogout: PropTypes.func,
     // 点击菜单的回调
@@ -126,6 +122,18 @@ class CommonHeader extends Component {
     onLogout: () => {},
     onClick: () => {}
   };
+  
+  // 获取首页url
+  static getHomeLink(companyType) {
+    if (companyType === 'admin') {
+      return `/dashboard`;
+      //公司身份 purchaser=核心企业 project=项目公司 都同时跳转到 purchaser 核心企业
+    }else if (companyType === 'purchaser' || companyType === 'project') {
+     return `/purchaser`;
+    } else {
+      return `/${companyType}`;
+    }
+  } 
 
   state = {
     authMenu: [
@@ -143,7 +151,9 @@ class CommonHeader extends Component {
         isMap: 'user',
       },
     ],
-    isInit: false
+    isInit: false,
+    homeLink: '',
+    title: ''
   }
 
   // 生成个人中心下拉菜单
@@ -208,15 +218,21 @@ class CommonHeader extends Component {
         return null;
       }
     }
+
+    if (nextProps.compResourcesFetch.fulfilled) {
+      let { companyName, companyType } = nextProps.compResourcesFetch.value;
+      return {
+        title: companyName,
+        homeLink: CommonHeader.getHomeLink(companyType)
+      }
+    }
     return null;
   }
 
   render() {
     const {
       msgFetch: { fulfilled: msgFulfilled, value: msgVal},
-      userInfoFetch: { fulfilled: userFulfilled, value: userVal },
-      title,
-      homeLink
+      userInfoFetch: { fulfilled: userFulfilled, value: userVal }
     } = this.props;
 
     return (
@@ -224,7 +240,7 @@ class CommonHeader extends Component {
           <Row type="flex" justify="space-between" style={{ margin: '0 auto', overflow: 'hidden', minWidth: 944 }}>
               <Col>
                 <div style={{ fontSize: '18px', color: ' #fff' }}>
-                  公司名称：<span>{ title }</span>
+                  公司名称：<span>{ this.state.title }</span>
                 </div>
               </Col>
 
@@ -236,7 +252,7 @@ class CommonHeader extends Component {
                     className="globalMenuRoot"
                   >
                     <Menu.Item key="home">
-                      <a rel="noopener noreferrer" style={{ color: '#fff' }} href={ homeLink === '/project' ? '/purchaser' :  homeLink}>
+                      <a rel="noopener noreferrer" style={{ color: '#fff' }} href={ this.state.homeLink }>
                         首页
                       </a>
                     </Menu.Item>

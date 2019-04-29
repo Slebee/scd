@@ -229,6 +229,7 @@ class CommonHeader extends Component {
         }
         return null;
         }
+    return null;
   }
 
   render() {

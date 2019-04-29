@@ -1,6 +1,6 @@
 {
   "name": "scd",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "scd React component",
   "main": "lib/index.js",
   "module": "es/index.js",

@@ -14,74 +14,10 @@ const IconFont = Icon.createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_1157489_hdovywho2do.js',
 });
 
-// 权限菜单编码
-const AUTH_MENU = {
-  // 我的待办
-  'G01585000': {
-    icon: <Icon type='solution' style={{ fontSize: '16px' }}/>,
-    key: 'todo',
-    href: '/todo',
-    isMap: 'user'
-  },
-  // 我的公司
-  'G01615000': {
-    icon:  <Icon type='home' style={{ fontSize: '16px' }}/>,
-    key: 'organization',
-    href: '/myCompany',
-    isMap: 'user'
-  },
-  // 文件下载
-  'G01684004': {
-    icon:  <Icon type='download' style={{ fontSize: '16px' }}/>,
-    key: 'download',
-    href:'http://test-portal-vanke-xintech.servingcloud.com/download',
-    isMap: 'user'
-  },
-  // 电子签章
-  'G01704004': {
-    icon: <IconFont type="icon-qianzhang" style={{ fontSize: '16px' }}/>,
-    key: 'electronicSignature',
-    href: '/electronicSignature',
-    isMap: 'user'
-  }
-};
-
-
-  // 构建权限菜单
-const genMenuList = (val) => {
- return val.reduce((authMenu, item) => {
-    for (let key in AUTH_MENU) {
-      if (item.code === key) {
-        authMenu.push({
-          title: item.name,
-          icon: AUTH_MENU[key].icon,
-          key: AUTH_MENU[key].key,
-          href: AUTH_MENU[key].href,
-          isMap: AUTH_MENU[key].isMap,
-        });
-      } else if (item.children.length) {
-        item.children.forEach(child => {
-          if (child.code === key) {
-            authMenu.push({
-              title: item.name,
-              icon: AUTH_MENU[key].icon,
-              key: AUTH_MENU[key].key,
-              href: AUTH_MENU[key].href,
-              isMap: AUTH_MENU[key].isMap,
-            });
-          }
-        });
-      }
-    }
-    return authMenu;
-  }, []);
-}
-
-
 @connect(({ baseURL = 'https://test-gateway.servingcloud.com' }) => ({
   // 权限菜单请请求接口
-  menuFetch: {
-    url: `${baseURL}/api/v1/ucenter/resources/getUserResources`,
+  userResourcesFetch: {
+    url: `${baseURL}/api/v1/ucenter/resources/header/UserResources`,
     then: ({ data }) => ({
       value: data
     })
@@ -106,7 +42,7 @@ const genMenuList = (val) => {
     then: ({ data }) => ({
       value: data
     })
-  },
+  }
 }))
 class CommonHeader extends Component {
   static propTypes = {
@@ -122,7 +58,7 @@ class CommonHeader extends Component {
     onLogout: () => {},
     onClick: () => {}
   };
-  
+
   // 获取首页url
   static getHomeLink(companyType) {
     if (companyType === 'admin') {
@@ -133,23 +69,15 @@ class CommonHeader extends Component {
     } else {
       return `/${companyType}`;
     }
-  } 
+  }
 
   state = {
-    authMenu: [
+    authMenu: [ 
       {
-        title:'个人中心',
-        icon: <Icon type='user' style={{ fontSize: '16px' }}/>,
-        key: 'userCenter',
-        href: '/userCenter',
-        isMap: 'user',
-      },
-      {
-        title:'退出',
-        icon: <Icon type='logout' style={{ fontSize: '16px' }}/>,
-        key: 'exit',
-        isMap: 'user',
-      },
+        ico: 'logout',
+        id: 'exit',
+        name: "退出"
+      }
     ],
     isInit: false,
     homeLink: '',
@@ -157,35 +85,21 @@ class CommonHeader extends Component {
   }
 
   // 生成个人中心下拉菜单
- generateMenu = (menuData, isMap, handleClick) => {
-    return menuData.reduce((menuList, item) => {
-        if (item.isMap === isMap) {
-            if ( isMap === 'product') {
-                menuList.push(
-                  <Menu.Item style={{ textAlign: 'center' }} key={item.key} onClick={handleClick}>
-                    <a target="_blank" rel="noopener noreferrer" href={item.href} >{item.title}</a>
-                  </Menu.Item>
-                )
-            } else if ( isMap === 'user') {
-                menuList.push(
-                  <Menu.Item style={{ marginLeft: '5px' }} key={item.key} onClick={handleClick}>
-                    <a target="_blank" rel="noopener noreferrer" href={item.href}>
-                      {item.icon}
-                      {item.title}
-                    </a>
-                  </Menu.Item>
-                )
+  generateMenu = (menuList, handleClick) => {
+    return menuList.reduce((menu, item) => {            
+      menu.push(
+        <Menu.Item style={{ marginLeft: '5px' }} key={item.id} onClick={handleClick}>
+          <a target="_blank" rel="noopener noreferrer" href={item.uri}>
+            {
+              /^icon/.test(item.ico) ? <IconFont type={item.ico} style={{ fontSize: '16px' }}/> 
+              : <Icon type={item.ico} style={{ fontSize: '16px' }} />
             }
-            // else {
-            //     menuList.push(
-            //         <Menu.Item style={{ textAlign: 'center' }} key={item.key}>
-            //            <a rel="noopener noreferrer"  href={item.href} >{item.title}</a>
-            //         </Menu.Item>
-            //     )
-            // }
-        }
-        return menuList;
-    }, [])
+            {item.name}
+          </a>
+        </Menu.Item>
+      );
+      return menu;
+    }, []);
   }
 
   // 退出
@@ -206,30 +120,28 @@ class CommonHeader extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.menuFetch.fulfilled && !prevState.isInit) {
-      let menu = genMenuList(nextProps.menuFetch.value);
-      if (menu.length) {
-        let [first, last] = prevState.authMenu;
+    if (nextProps.userResourcesFetch.fulfilled && !prevState.isInit){
+      if (nextProps.userResourcesFetch.value && nextProps.userResourcesFetch.value.length) {
+        let authMenu = [...nextProps.userResourcesFetch.value, ...prevState.authMenu];
         return {
-          authMenu: [first, ...menu, last],
+          authMenu,
           isInit: true
         }
       } else {
         return null;
-      }
+      } 
     }
 
     if (nextProps.compResourcesFetch.fulfilled) {
         if(nextProps.compResourcesFetch && nextProps.compResourcesFetch.value){
-          let { companyName, companyType } = nextProps.compResourcesFetch && nextProps.compResourcesFetch.value;
-          return {
+            let { companyName, companyType } = nextProps.compResourcesFetch && nextProps.compResourcesFetch.value;
+            return {
             title: companyName && companyName ? companyName : '',
             homeLink: CommonHeader.getHomeLink(companyType)
-          }
+            }
         }
         return null;
-        }
-    return null;
+    }
   }
 
   render() {
@@ -279,7 +191,7 @@ class CommonHeader extends Component {
                         </a>
                       }
                     >
-                      {this.generateMenu(this.state.authMenu, 'user', this.props.onClick)}
+                      {this.generateMenu(this.state.authMenu, this.props.onClick)}
                     </SubMenu>
                   </Menu>
               </Col>

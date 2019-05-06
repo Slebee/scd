@@ -177,10 +177,7 @@ class Demo extends Component {
         <div style={{ background: "#fefefe", marginTop: 100 }}>
             <h1>CommonHeader</h1>
             <CommonHeader 
-                msgUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/message/getNotReadCount'
-                menuAuthUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/resources/getUserResources'
-                userInfoUrl='https://test-gateway.servingcloud.com/api/v1/ucenter/getuser/info'
-                title='盈佳云创科技有限公司'  
+              baseURL='https://test-gateway.servingcloud.com'
             />
         </div>
       </div>

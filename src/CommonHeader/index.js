@@ -133,15 +133,16 @@ class CommonHeader extends Component {
     }
 
     if (nextProps.compResourcesFetch.fulfilled) {
-        if(nextProps.compResourcesFetch && nextProps.compResourcesFetch.value){
-            let { companyName, companyType } = nextProps.compResourcesFetch && nextProps.compResourcesFetch.value;
-            return {
-            title: companyName && companyName ? companyName : '',
-            homeLink: CommonHeader.getHomeLink(companyType)
-            }
+      if(nextProps.compResourcesFetch && nextProps.compResourcesFetch.value){
+        let { companyName, companyType } = nextProps.compResourcesFetch && nextProps.compResourcesFetch.value;
+        return {
+          title: companyName && companyName ? companyName : '',
+          homeLink: CommonHeader.getHomeLink(companyType)
         }
-        return null;
+      }
+      return null;
     }
+    return null;
   }
 
   render() {

@@ -42,8 +42,11 @@ export default class SearchTable extends Component {
     beforeSubmit: PropTypes.func,
     /** 介于搜索栏与表格栏中间的节点 */
     actions: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-     /** pagination 的 props*/
-     pagination: PropTypes.object,
+    /** pagination 的 props*/
+    pagination: PropTypes.object,
+    /** Card 的 props*/
+    cardProps: PropTypes.object,
+
   };
 
   static defaultProps = {
@@ -59,6 +62,7 @@ export default class SearchTable extends Component {
     beforeSubmit: values => values,
     actions: undefined,
     pagination: undefined,
+    cardProps: {},
   };
 
   static TableTextItem = TextItem;
@@ -106,6 +110,7 @@ export default class SearchTable extends Component {
       extra,
       actions,
       pagination,
+      cardProps,
     } = this.props;
     const { ownParams } = this.state;
     const nextPrams = {
@@ -124,7 +129,7 @@ export default class SearchTable extends Component {
           fields={fields}
           operationsColSpan={operationsColSpan}
         />
-        <Card title={tableTitle} bordered={false} extra={extra}>
+        <Card title={tableTitle} bordered={false} extra={extra} {...cardProps}>
           <StandardAsyncTable
             url={url}
             fetchOnDidMount={false}

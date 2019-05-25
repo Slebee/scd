@@ -115,6 +115,9 @@ class SearchSelect extends Component {
       notFoundContent,
       style
     } = this.props;
+    const iumProps = {
+        ...this.props
+    };
     const { value: stateValue } = this.state;
     return (
       <Spin spinning={pending} style={{ width: style ? style.width : "auto" }}>
@@ -131,6 +134,7 @@ class SearchSelect extends Component {
             option.props.children.toLowerCase().indexOf(input.toLowerCase()) >=
             0
           }
+          {...iumProps}
         >
           {fulfilled &&
             value &&

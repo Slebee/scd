@@ -1,4 +1,5 @@
 import React, { Component, createRef } from "react";
+import { message } from "antd";
 import StandardTable from "../StandardTable";
 import PropTypes from "prop-types";
 import qs from "qs";
@@ -49,7 +50,10 @@ import connect from "../utils/api-connector";
             ...pagination
           },
         }
-      })
+      }),
+      catch: (res =>{
+        message.error(res.message)
+      }),
     }
   })
 }))

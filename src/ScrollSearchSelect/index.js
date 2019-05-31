@@ -142,7 +142,7 @@ class ScrollSearchSelect extends Component {
     } = this.props;
     const iumProps = {
         ...this.props
-      };
+    };
     const { value: stateValue } = this.state;
     return (
       <Spin spinning={pending} style={{ width: style ? style.width : "auto" }}>

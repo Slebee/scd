@@ -98,6 +98,7 @@ export default class SearchTable extends Component {
       rowKey,
       columns,
       title,
+      submitDidMount,
       params,
       url,
       type,
@@ -121,7 +122,7 @@ export default class SearchTable extends Component {
       <React.Fragment>
         <StandardFilter
           title={title}
-          submitDidMount
+          submitDidMount={submitDidMount}
           beforeSubmit={beforeSubmit}
           onSubmit={this.setParams}
           type={type}

@@ -9,13 +9,13 @@ import connect from "../utils/api-connector";
 @connect(({ url, params, pagination }) => ({
   refreshData: (pageParams) => ({
     dataFetch: {
-      url: `${url}?${qs.stringify({ 
+      url: `${url}?${qs.stringify({
           ...pagination,
-        //   pageSize: pagination.pageSize, 
-        //   current: pagination.current, 
-        //   pageSizeOptions: pagination.pageSizeOptions, 
-          ...pageParams, 
-          ...params 
+        //   pageSize: pagination.pageSize,
+        //   current: pagination.current,
+        //   pageSizeOptions: pagination.pageSizeOptions,
+          ...pageParams,
+          ...params
         })}`,
       method: "GET",
       // body: JSON.stringify({ ...pageParams, ...params }),
@@ -80,7 +80,7 @@ class StandardAsyncTable extends Component {
     url: PropTypes.string.isRequired,
     /** table 的 props*/
     tableOptiProps: PropTypes.object,
-    
+
     /** pagination 的 props*/
     pagination: PropTypes.object,
   };
@@ -91,7 +91,7 @@ class StandardAsyncTable extends Component {
     rowKey: "key",
     // selectRowAble: false,
     dataFetch: {
-      pending: true,
+      pending: false,
       fulfilled: false,
       value: {
         list: [],
@@ -141,6 +141,7 @@ class StandardAsyncTable extends Component {
 
   render() {
     const { rowKey, columns, dataFetch, scroll, rowSelection, tableOptiProps, pagination } = this.props;
+
     const defaultData = {
         list: [],
         pagination,

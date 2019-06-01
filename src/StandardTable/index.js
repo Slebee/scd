@@ -125,15 +125,15 @@ class StandardTable extends PureComponent {
 
     const nextRowSelection = rowSelection
       ? {
-          ...rowSelection,
+         
           selectedRowKeys,
           onChange: this.handleRowSelectChange,
           getCheckboxProps: record => ({
             disabled: record.disabled
-          })
+          }),
+          ...rowSelection,
         }
       : undefined;
-
     return (
       <div className={styles.standardTable}>
         {nextRowSelection && (

@@ -125,7 +125,7 @@ class StandardAsyncTable extends Component {
   }
 
   onChange = (pagination, filters, sorter) => {
-    const { refreshData } = this.props;
+    const { refreshData, handleTableChange } = this.props;
     const { field, order } = sorter;
     refreshData({
       asc: order ? order.replace("end", "") === "asc" : undefined,
@@ -133,6 +133,7 @@ class StandardAsyncTable extends Component {
       page: pagination.current,
       pageSize: pagination.pageSize
     });
+    handleTableChange && handleTableChange()
   };
 
   cleanSelectedKeys = () => {

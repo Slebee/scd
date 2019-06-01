@@ -26,7 +26,7 @@ class StandardFilter extends Component {
     fields: [],
     type: "table",
     operationsColSpan: 8,
-    submitDidMount: false,
+    submitDidMount: true,
     actions: undefined
   };
 

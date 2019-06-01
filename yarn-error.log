@@ -1,0 +1,87 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Users\25413\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\TortoiseSVN\bin;C:\Users\25413\AppData\Local\Microsoft\WindowsApps;C:\Users\25413\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\25413\AppData\Local\Yarn\bin;C:\Users\25413\AppData\Roaming\nvm;C:\Program Files\nodejs
+
+Yarn version: 
+  1.12.3
+
+Node version: 
+  8.10.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, open 'C:\Users\25413\AppData\Local\Yarn\Cache\v4\npm-@types-node-8.10.49-f331afc5efed0796798e5591d6e0ece636969b7b\node_modules\@types\node\.yarn-metadata.json'
+
+npm manifest: 
+  {
+    "name": "scd",
+    "version": "1.9.1",
+    "description": "scd React component",
+    "main": "lib/index.js",
+    "module": "es/index.js",
+    "files": [
+      "css",
+      "es",
+      "lib",
+      "umd"
+    ],
+    "scripts": {
+      "build": "nwb build-react-component --copy-files",
+      "clean": "nwb clean-module && nwb clean-demo",
+      "prepublishOnly": "npm run build",
+      "start": "nwb serve-react-demo",
+      "test": "nwb test-react",
+      "test:coverage": "nwb test-react --coverage",
+      "test:watch": "nwb test-react --server",
+      "docz:dev": "docz dev",
+      "docz:build": "docz build"
+    },
+    "dependencies": {
+      "antd": "^3.11.6",
+      "china-division": "^2.1.1",
+      "classnames": "^2.2.6",
+      "docz-theme-default": "^0.13.7",
+      "extract-text-webpack-plugin": "^4.0.0-beta.0",
+      "js-cookie": "^2.2.0",
+      "lodash-decorators": "^6.0.0",
+      "num2fraction": "^1.2.2",
+      "numeral": "^2.0.6",
+      "nzh": "^1.0.3",
+      "qs": "^6.6.0",
+      "react-refetch": "^2.0.1",
+      "react-router-breadcrumbs-hoc": "^2.3.1",
+      "save": "^2.3.3",
+      "spark-md5": "^3.0.0"
+    },
+    "peerDependencies": {
+      "react": "16.x"
+    },
+    "devDependencies": {
+      "@babel/plugin-proposal-decorators": "^7.1.6",
+      "babel-plugin-import": "1.x",
+      "docz": "^0.13.7",
+      "docz-plugin-css": "^0.11.0",
+      "docz-plugin-netlify": "^1.1.4",
+      "nwb": "0.23.x",
+      "nwb-less": "0.7.x",
+      "react": "^16.6.3",
+      "react-dom": "^16.6.3"
+    },
+    "author": "slebee",
+    "homepage": "",
+    "license": "MIT",
+    "repository": "",
+    "keywords": [
+      "react-component"
+    ]
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

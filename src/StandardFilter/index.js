@@ -36,9 +36,10 @@ class StandardFilter extends Component {
   }
 
   resetFields = () => {
-    const { form, onSubmit, fields } = this.props;
+    const { form, onSubmit, fields, resetSubmit } = this.props;
     form.resetFields();
     onSubmit(transformFieldValues(form.getFieldsValue(), fields));
+    resetSubmit && resetSubmit()
   };
 
   okHandle = e => {

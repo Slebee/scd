@@ -59,12 +59,12 @@ class StandardTable extends PureComponent {
   constructor(props) {
     super(props);
     const { columns } = props;
-    const needTotalList = initTotalList(columns);
+    // const needTotalList = initTotalList(columns);
 
-    this.state = {
-      selectedRowKeys: [],
-      needTotalList
-    };
+    // this.state = {
+    //   selectedRowKeys: [],
+    //   needTotalList
+    // };
   }
 
   // static getDerivedStateFromProps(nextProps) {
@@ -80,20 +80,20 @@ class StandardTable extends PureComponent {
   // }
 
   handleRowSelectChange = (selectedRowKeys, selectedRows) => {
-    let { needTotalList } = this.state;
-    needTotalList = needTotalList.map(item => ({
-      ...item,
-      total: selectedRows.reduce(
-        (sum, val) => sum + parseFloat(val[item.dataIndex], 10),
-        0
-      )
-    }));
+    // let { needTotalList } = this.state;
+    // needTotalList = needTotalList.map(item => ({
+    //   ...item,
+    //   total: selectedRows.reduce(
+    //     (sum, val) => sum + parseFloat(val[item.dataIndex], 10),
+    //     0
+    //   )
+    // }));
     const { onSelectRow, rowSelection } = this.props;
     if (onSelectRow) onSelectRow(selectedRows);
     if (rowSelection && rowSelection.onChange)
       rowSelection.onChange(selectedRowKeys, selectedRows);
-
-    this.setState({ selectedRowKeys, needTotalList });
+    
+    //this.setState({ selectedRowKeys, needTotalList });
   };
 
   handleTableChange = (pagination, filters, sorter) => {
@@ -106,7 +106,7 @@ class StandardTable extends PureComponent {
   };
 
   render() {
-    const { selectedRowKeys, needTotalList } = this.state;
+    //const { selectedRowKeys, needTotalList } = this.state;
     const {
       data: { list, pagination },
       loading,
@@ -126,14 +126,14 @@ class StandardTable extends PureComponent {
     const nextRowSelection = rowSelection
       ? {
           ...rowSelection,
-          selectedRowKeys,
+          selectedRowKeys: rowSelection.selectedRowKeys,
           onChange: this.handleRowSelectChange,
           getCheckboxProps: record => ({
             disabled: record.disabled
-          })
+          }),
         }
       : undefined;
-
+      console.log(nextRowSelection)
     return (
       <div className={styles.standardTable}>
         {nextRowSelection && (
@@ -142,9 +142,9 @@ class StandardTable extends PureComponent {
               message={
                 <React.Fragment>
                   已选择{" "}
-                  <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a>{" "}
+                  <a style={{ fontWeight: 600 }}>{nextRowSelection.selectedRowKeys.length}</a>{" "}
                   项&nbsp;&nbsp;
-                  {needTotalList.map(item => (
+                  {/* {needTotalList.map(item => (
                     <span style={{ marginLeft: 8 }} key={item.dataIndex}>
                       {item.title}
                       总计&nbsp;
@@ -152,8 +152,8 @@ class StandardTable extends PureComponent {
                         {item.render ? item.render(item.total) : item.total}
                       </span>
                     </span>
-                  ))}
-                  {selectedRowKeys.length !== 0 && (
+                  ))} */}
+                  {nextRowSelection.selectedRowKeys.length !== 0 && (
                     <a
                       onClick={this.cleanSelectedKeys}
                       style={{ marginLeft: 24 }}

@@ -40,6 +40,8 @@ export default class SearchTable extends Component {
     rowSelection: PropTypes.object,
     /** 发起请求前回调，可以对fields进行手动修改 */
     beforeSubmit: PropTypes.func,
+    /** 重置前回调 */
+    resetSubmit: PropTypes.func,
     /** 介于搜索栏与表格栏中间的节点 */
     actions: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     /** pagination 的 props*/
@@ -60,6 +62,7 @@ export default class SearchTable extends Component {
     scroll: undefined,
     rowSelection: undefined,
     beforeSubmit: values => values,
+    resetSubmit: undefined,
     actions: undefined,
     pagination: undefined,
     cardProps: {},
@@ -108,6 +111,8 @@ export default class SearchTable extends Component {
       tableTitle,
       rowSelection,
       beforeSubmit,
+      resetSubmit,
+      handleTableChange,
       extra,
       actions,
       pagination,
@@ -124,6 +129,7 @@ export default class SearchTable extends Component {
           title={title}
           submitDidMount={submitDidMount}
           beforeSubmit={beforeSubmit}
+          resetSubmit={resetSubmit}
           onSubmit={this.setParams}
           type={type}
           actions={actions}
@@ -142,6 +148,7 @@ export default class SearchTable extends Component {
             rowKey={rowKey}
             columns={columns}
             pagination={pagination}
+            handleTableChange={handleTableChange}
           />
         </Card>
       </React.Fragment>
